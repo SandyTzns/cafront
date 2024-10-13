@@ -1,6 +1,6 @@
 import React from "react";
 
-function SignUp() {
+function SignUpPage() {
   return (
     <div>
       <br />
@@ -16,4 +16,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignUpPage;

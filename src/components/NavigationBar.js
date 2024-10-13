@@ -2,19 +2,24 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
+import Logo from "../assets/images/logo.png";
+import "../scss/NavigationBar.scss";
 
 function NavigationBar() {
   return (
     <div>
-      <Navbar
-        expand="lg"
-        className="bg-primary w-100 fixed-top z-1"
-        data-bs-theme="dark"
-      >
+      <Navbar expand="lg" className="bg-primary w-100 " data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#" className="fs-4">
-            Sandy-Line <span className="text-dark">T.</span>
+            <img
+              src={Logo}
+              alt="Coeur Alizés Spirit Logo"
+              className="logo me-2" // Adds margin to the right of the logo
+              style={{ width: "100px" }} // Adjust the logo size here
+            />
+            Coeur Alizés <span className="text-dark">[SPIRIT] </span>
           </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto w-100 d-flex justify-content-end">
