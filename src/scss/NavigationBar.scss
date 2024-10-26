@@ -4,3 +4,33 @@
   top: 2px;
   left: 15px;
 }
+
+.navbar-brand {
+  margin-left: 0px;
+}
+
+// @media (min-width: 768px) {
+//   .logo {
+//     width: 100px; // Adjust for medium screens and above
+//     top: 1px; // Slightly less offset for larger screens
+//     left: 30px;
+//   }
+// }
+
+// .navbar-brand {
+//   display: flex;
+//   align-items: center;
+//   margin-left: 20px; // Pushes the brand text to the right to align with the logo on smaller screens
+// }
+
+// @media (min-width: 768px) {
+//   .navbar-brand {
+//     margin-left: 20px; // Adjust for medium and larger screens if needed
+//   }
+// }
+
+// .navbar-nav {
+//   display: flex;
+//   justify-content: flex-end;
+//   width: 100%;
+// }

@@ -11,14 +11,14 @@ function NavigationBar() {
       <Navbar expand="lg" className="bg-primary w-100 " data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#" className="fs-4">
-            <img
-              src={Logo}
-              alt="Coeur Alizés Spirit Logo"
-              className="logo me-2" // Adds margin to the right of the logo
-              style={{ width: "100px" }} // Adjust the logo size here
-            />
             Coeur Alizés <span className="text-dark">[SPIRIT] </span>
           </Navbar.Brand>
+          <img
+            src={Logo}
+            alt="Coeur Alizés Spirit Logo"
+            className="logo me-2" // Adds margin to the right of the logo
+            style={{ width: "100px" }} // Adjust the logo size here
+          />
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
