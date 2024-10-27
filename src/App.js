@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 // import Footer from "./components/Footer";
 import NewPost from "./components/NewPost";
 import LandingPage from "./pages/LandingPage";
+import Posts from "./components/Posts";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/newpost" element={<NewPost />} />
+        <Route path="/dashboard/allposts" element={<Posts />} />
       </Routes>
     </BrowserRouter>
   );
