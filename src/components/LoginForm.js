@@ -1,55 +1,45 @@
 import React from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import Logo from "../assets/images/logo.png";
 
 function LoginForm() {
   return (
-    <Container className="d-flex justify-content-center">
-      <Form
-        className="bg-light text-dark p-5 border rounded shadow-lg"
-        style={{ maxWidth: "400px", width: "100%" }}
-      >
-        <Form.Group className="mb-4" controlId="email">
-          <Form.Label className="text-start w-100 text-muted">
-            Adresse Email
-          </Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Entrez votre adresse email"
-            className="p-2"
-          />
-        </Form.Group>
+    <Container className="d-flex justify-content-center mt-5">
+      <Row className="align-items-center">
+        {/* Logo Section */}
+        <Col md="auto" className="text-center mb-4 mb-md-0">
+          <img src={Logo} alt="Logo" style={{ maxWidth: "250px" }} />
+        </Col>
 
-        <Form.Group className="mb-4" controlId="password">
-          <Form.Label className="text-start w-100 text-muted">
-            Mot de passe
-          </Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Entrez votre mot de passe"
-            className="p-2"
-          />
-        </Form.Group>
+        {/* Form Section */}
+        <Col md="auto">
+          <Form>
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label className="text-muted">Adresse Email</Form.Label>
+              <Form.Control type="email" />
+            </Form.Group>
 
-        <Button
-          variant="primary"
-          type="submit"
-          className="w-100 p-2"
-          style={{ fontWeight: "bold" }}
-        >
-          Se connecter
-        </Button>
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label className="text-muted">Mot de passe</Form.Label>
+              <Form.Control type="password" />
+            </Form.Group>
 
-        <p className="mt-3 text-center">
-          <a
-            href="#"
-            className="text-decoration-none"
-            style={{ color: "#0d6efd" }}
-            aria-label="Forgot password"
-          >
-            J'ai oublié mon mot de passe
-          </a>
-        </p>
-      </Form>
+            <Button variant="primary" type="submit" className="w-100">
+              Se connecter
+            </Button>
+
+            <p className="text-center mt-3">
+              <a
+                href="#"
+                style={{ color: "#0d6efd" }}
+                aria-label="Forgot password"
+              >
+                J'ai oublié mon mot de passe
+              </a>
+            </p>
+          </Form>
+        </Col>
+      </Row>
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
-import Logo from "../assets/images/logo.png";
+// import Logo from "../assets/images/logo.png";
 import "../scss/NavigationBar.scss";
 
 function NavigationBar() {
@@ -13,12 +13,12 @@ function NavigationBar() {
           <Navbar.Brand href="#" className="fs-4">
             Coeur Alizés <span className="text-dark">[SPIRIT] </span>
           </Navbar.Brand>
-          <img
+          {/* <img
             src={Logo}
             alt="Coeur Alizés Spirit Logo"
             className="logo me-2" // Adds margin to the right of the logo
             style={{ width: "100px" }} // Adjust the logo size here
-          />
+          /> */}
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
