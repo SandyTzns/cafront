@@ -1,8 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Container } from "react-bootstrap";
 import Logo from "../assets/images/logo.png";
 
 function LandingPage() {
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const handleSignUpClick = () => {
+    navigate("/signup");
+  };
   return (
     <Container className="d-flex flex-column align-items-center mt-5">
       <div className="d-flex align-items-center justify-content-center mb-4">
@@ -23,12 +33,17 @@ function LandingPage() {
       </div>
       <div className="d-flex justify-content-center mt-4">
         <Button
+          onClick={handleLoginClick}
           variant="outline-primary"
           style={{ width: "250px", marginRight: "15px" }}
         >
           Log In
         </Button>
-        <Button variant="outline-primary" style={{ width: "250px" }}>
+        <Button
+          onClick={handleSignUpClick}
+          variant="outline-primary"
+          style={{ width: "250px" }}
+        >
           Sign Up
         </Button>
       </div>
