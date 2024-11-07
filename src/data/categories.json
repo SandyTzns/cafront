@@ -1,0 +1,14 @@
+[
+  { "id": 1, "categories": ["Peinture", "Musique"] },
+  { "id": 2, "categories": ["Artistique", "Musicale"] },
+  { "id": 3, "categories": ["Conte", "Littérature"] },
+  { "id": 4, "categories": ["Plaisirs gatronomique", "Viticole"] },
+  { "id": 5, "categories": ["Vacances", "Détente"] },
+  { "id": 6, "categories": ["Évènementiel", "Associations"] },
+  { "id": 7, "categories": ["Industrie", "Science"] },
+  { "id": 8, "categories": ["Maritime", "Nautisme"] },
+  { "id": 9, "categories": ["Défense", "Spatiale"] },
+  { "id": 10, "categories": ["Planète Terre"] },
+  { "id": 11, "categories": ["Initiatives plurielles"] },
+  { "id": 12, "categories": ["Le coeur sur la main", "Mécénat"] }
+]

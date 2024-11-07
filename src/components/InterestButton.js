@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import categoriesData from "../data/categories.json";
 import "../scss/InterestButton.scss";
 
 function InterestButton() {
@@ -7,10 +8,8 @@ function InterestButton() {
   const handleCategoryClick = (category) => {
     setSelectedCategories((prevSelected) => {
       if (prevSelected.includes(category)) {
-        // If already selected, remove it
         return prevSelected.filter((item) => item !== category);
       } else {
-        // If not selected, add it
         return [...prevSelected, category];
       }
     });
@@ -18,22 +17,26 @@ function InterestButton() {
 
   return (
     <div className="interest-button">
-      <div
-        className={`half-button left-button ${
-          selectedCategories.includes("painting") ? "selected" : ""
-        }`}
-        onClick={() => handleCategoryClick("painting")}
-      >
-        Peinture
-      </div>
-      <div
-        className={`half-button right-button ${
-          selectedCategories.includes("music") ? "selected" : ""
-        }`}
-        onClick={() => handleCategoryClick("music")}
-      >
-        Musique
-      </div>
+      {categoriesData.map((set) => (
+        <div
+          key={set.id}
+          className={`button-set ${
+            set.categories.length === 1 ? "single" : "double"
+          }`}
+        >
+          {set.categories.map((category) => (
+            <div
+              key={category}
+              className={`half-button ${
+                selectedCategories.includes(category) ? "selected" : ""
+              }`}
+              onClick={() => handleCategoryClick(category)}
+            >
+              {category}
+            </div>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }

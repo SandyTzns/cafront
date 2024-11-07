@@ -35,6 +35,11 @@
   }
 }
 
+.form-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 $primary: #00bfff;
 
 @import "~bootstrap/scss/bootstrap.scss";

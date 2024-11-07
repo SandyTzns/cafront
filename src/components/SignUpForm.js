@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import TextInput from "./FormTextInput";
 import FileInput from "./FormFileInput";
-import CatButton from "./CatButton";
 import InterestButton from "./InterestButton";
 
 function SignUpForm() {
@@ -97,12 +96,18 @@ function SignUpForm() {
           onChange={handleChange}
         />
         {/* Centre d'intérêt Label */}
-        <div className="container my-5 d-flex flex-column align-items-center">
-          <label className="form-label fw-bold">Centres d’intérêt :</label>
-          <div className="d-flex flex-row justify-content-between categories">
-            {/* Example Split Button */}
-            <InterestButton />
-            {/* Add more split buttons here as needed */}
+        <div className="row mb-3">
+          <div className="col-md-12">
+            <label htmlFor="interests" className="form-label">
+              Centres d’intérêt :
+            </label>
+            <div
+              id="interests"
+              className="d-flex flex-wrap justify-content-between categories"
+            >
+              <InterestButton />
+              {/* Add more InterestButtons here if needed */}
+            </div>
           </div>
         </div>
       </form>
