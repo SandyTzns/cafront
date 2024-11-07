@@ -9,7 +9,7 @@
   flex: 1 1 calc(25% - 10px); // 25% width minus the gap to fit 4 items per row
   min-width: 150px; // Minimum width for smaller screens, adjust as needed
   max-width: 200px; // Ensures buttons don’t get too wide on larger screens
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden; /* Ensures inner elements don’t affect the rounded corners */
   box-shadow: -1px 2px 7px 0px rgba(0, 0, 0, 0.2);
 

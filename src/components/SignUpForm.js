@@ -23,10 +23,6 @@ function SignUpForm() {
     }));
   };
 
-  const handleSubmit = (option) => {
-    console.log("Selected option:", option);
-  };
-
   return (
     <div className="container my-5 d-flex justify-content-center">
       <form style={{ width: "80%" }}>
@@ -96,9 +92,9 @@ function SignUpForm() {
           onChange={handleChange}
         />
         {/* Centre d'intérêt Label */}
-        <div className="row mb-3">
+        <div className="row mb-5 mt-5">
           <div className="col-md-12">
-            <label htmlFor="interests" className="form-label">
+            <label htmlFor="interests" className="form-label mb-4">
               Centres d’intérêt :
             </label>
             <div
@@ -106,10 +102,34 @@ function SignUpForm() {
               className="d-flex flex-wrap justify-content-between categories"
             >
               <InterestButton />
-              {/* Add more InterestButtons here if needed */}
             </div>
           </div>
         </div>
+
+        {/* Conditions générales Checkbox */}
+        <div className="form-check mb-5 mt-5">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="agreeToTerms"
+            name="agreeToTerms"
+            checked={formData.agreeToTerms}
+            onChange={handleChange}
+          />
+          <label className="form-check-label" htmlFor="agreeToTerms">
+            J'accepte les conditions générales
+          </label>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          variant="primary"
+          type="submit"
+          className="btn bg-primary w-100 border-0"
+          disabled={!formData.agreeToTerms} // Disables submit unless checkbox is checked
+        >
+          S'inscrire
+        </button>
       </form>
     </div>
   );
