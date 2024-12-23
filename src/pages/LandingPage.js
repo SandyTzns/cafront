@@ -1,53 +1,38 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Container } from "react-bootstrap";
-import Logo from "../assets/images/logo.png";
+import React, { useState, useEffect } from "react";
+import oceanWaves from "../assets/videos/ocean-waves.mp4";
+import "../styles/LandingPage.css";
 
 function LandingPage() {
-  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false);
 
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
+  useEffect(() => {
+    // Activate the fade-in effect after 2 seconds
+    const timer = setTimeout(() => {
+      setIsActive(true);
+    }, 2000); // 2 seconds for testing
 
-  const handleSignUpClick = () => {
-    navigate("/signup");
-  };
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, []);
   return (
-    <Container className="d-flex flex-column align-items-center mt-5">
-      <div className="d-flex align-items-center justify-content-center mb-4">
-        <img
-          src={Logo}
-          alt="Logo"
-          className="img-fluid"
-          style={{ maxWidth: "250px", marginRight: "20px" }}
-        />
-        <div className="text-center">
-          <h2>COEUR ALIZÉS SPIRIT [L'Art du Positif]</h2>
-          <p>Bâtissons ce nouvel horizon</p>
-          <p>
-            NOS 17 RÉGIONS REGORGENT DE POSITIVITÉ <br />
-            Notre plate-forme vous est ouverte pour ce partage
-          </p>
-        </div>
+    <div className="landing-page">
+      <video autoPlay loop muted className="background-video">
+        <source src={oceanWaves} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      {/* Ensure className includes 'active' dynamically */}
+      <div className={`content ${isActive ? "active" : ""}`}>
+        <h1>
+          COEUR ALIZÉS SPIRIT
+          <span> [L’art du Positif]</span>
+        </h1>
+        <p>
+          Bâtissons ce nouvel horizon <br />
+          NOS RÉGIONS REGORGENT DE POSITIVITÉ <br />
+          Notre plateforme vous est ouverte pour ce partage
+        </p>
+        <button className="connect-button offset">CONNECTEZ-VOUS</button>
       </div>
-      <div className="d-flex justify-content-center mt-4">
-        <Button
-          onClick={handleLoginClick}
-          variant="outline-primary"
-          style={{ width: "250px", marginRight: "15px" }}
-        >
-          Log In
-        </Button>
-        <Button
-          onClick={handleSignUpClick}
-          variant="outline-primary"
-          style={{ width: "250px" }}
-        >
-          Sign Up
-        </Button>
-      </div>
-    </Container>
+    </div>
   );
 }
 
