@@ -121,6 +121,7 @@ input::placeholder {
   font-size: 0.9rem;
   text-decoration: none;
   white-space: nowrap; /* Prevents wrapping */
+  cursor: pointer;
 }
 
 .forgot-password:hover {

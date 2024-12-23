@@ -1,8 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
 import { FaGoogle, FaLinkedin } from "react-icons/fa"; // Social Icons
 
 function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Placeholder for authentication logic
+    navigate("/main"); // Navigate to Main Page
+  };
+
+  const handleForgotPassword = () => {
+    navigate("/forgot-password"); // Navigate to Password Recovery Email Page
+  };
+
   return (
     <div className="login">
       {/* Social Login Section */}
@@ -22,7 +35,7 @@ function Login() {
       </div>
 
       {/* Form */}
-      <form>
+      <form onSubmit={handleLogin}>
         <label htmlFor="email">EMAIL</label>
         <input type="email" id="email" placeholder="Adresse email" required />
         <label htmlFor="password">MOT DE PASSE</label>
@@ -40,7 +53,7 @@ function Login() {
             <input type="checkbox" id="remember-me" name="remember-me" />
             <label htmlFor="remember-me">Se souvenir de moi</label>
           </div>
-          <a href="#" className="forgot-password">
+          <a onClick={handleForgotPassword} className="forgot-password">
             Mot de passe oublié ?
           </a>
         </div>

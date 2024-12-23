@@ -1,0 +1,28 @@
+/* 404 Page */
+.not-found-page {
+  margin-top: 20vh;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.not-found-page h1 {
+  font-size: 2.5rem;
+  color: #00557f;
+}
+
+.not-found-page button {
+  margin-top: 2rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #00557f, #1b8ea8);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.not-found-page button:hover {
+  background: linear-gradient(135deg, #1b8ea8, #00557f);
+}
