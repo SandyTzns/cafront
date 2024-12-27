@@ -1,0 +1,70 @@
+/* Dropdown */
+.dropdown {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #00557f;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 0.8rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.title h2 {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.arrows img {
+  height: 20px;
+}
+
+.collapsible-content {
+  height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  padding: 0 1rem;
+  border-radius: 5px;
+}
+
+.show {
+  height: auto;
+  padding: 1rem;
+}
+
+/* Interests Buttons */
+.interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.interest-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #00557f;
+  background: #e0f7ff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.interest-button:hover {
+  background: #bce7ff;
+}
+
+.interest-button.selected {
+  background: #00557f;
+  color: white;
+}

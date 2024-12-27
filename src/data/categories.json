@@ -1,14 +1,61 @@
 [
-  { "id": 1, "categories": ["Peinture", "Musique"] },
-  { "id": 2, "categories": ["Artistique", "Musicale"] },
-  { "id": 3, "categories": ["Conte", "Littérature"] },
-  { "id": 4, "categories": ["Plaisirs gatronomique", "Viticole"] },
-  { "id": 5, "categories": ["Vacances", "Détente"] },
-  { "id": 6, "categories": ["Évènementiel", "Associations"] },
-  { "id": 7, "categories": ["Industrie", "Science"] },
-  { "id": 8, "categories": ["Maritime", "Nautisme"] },
-  { "id": 9, "categories": ["Défense", "Spatiale"] },
-  { "id": 10, "categories": ["Planète Terre"] },
-  { "id": 11, "categories": ["Initiatives plurielles"] },
-  { "id": 12, "categories": ["Le coeur sur la main", "Mécénat"] }
+  {
+    "name": "Art et Culture",
+    "color": "#FF6F61",
+    "interests": [
+      "Peinture",
+      "Musique",
+      "Artistique",
+      "Musicale",
+      "Conte",
+      "Littérature"
+    ]
+  },
+  {
+    "name": "Gastronomie et Œnologie",
+    "color": "#FFA500",
+    "interests": ["Plaisirs Gastronomiques", "Viticole"]
+  },
+  {
+    "name": "Loisirs et Détente",
+    "color": "#6B8E23",
+    "interests": ["Vacances", "Détente", "Évènementiel"]
+  },
+  {
+    "name": "Communauté et Associations",
+    "color": "#4682B4",
+    "interests": [
+      "Associations",
+      "Initiatives Plurielles",
+      "Le Cœur sur la Main",
+      "Mécénat"
+    ]
+  },
+  {
+    "name": "Sciences et Technologies",
+    "color": "#20B2AA",
+    "interests": [
+      "Industrie",
+      "Science",
+      "Spatiale",
+      "Planète Terre",
+      "Aviation",
+      "Invention et Technologie"
+    ]
+  },
+  {
+    "name": "Maritime et Nautisme",
+    "color": "#1E90FF",
+    "interests": ["Maritime", "Nautisme", "Défense"]
+  },
+  {
+    "name": "Transport",
+    "color": "#FF4500",
+    "interests": ["Voitures"]
+  },
+  {
+    "name": "Autres",
+    "color": "#808080",
+    "interests": ["Autres"]
+  }
 ]

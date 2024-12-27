@@ -1,0 +1,103 @@
+/* Page Layout */
+.sign-up-page {
+  margin: 10vh auto 0;
+  max-width: 700px;
+  font-family: "Poppins", sans-serif;
+  text-align: left;
+}
+
+.sign-up-page h1 {
+  font-size: 2rem;
+  color: #00557f;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Form Layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Group Labels and Inputs */
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #00557f;
+  width: 30%;
+}
+
+.form-group input {
+  flex: 1;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+/* Row Layout for Side-by-Side Inputs */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.fullname-section .input-pair {
+  gap: 1.5rem;
+}
+
+/* Input-Pair Alignment */
+.input-pair {
+  display: flex;
+  align-items: center; /* Align label and input vertically */
+  gap: 0.5rem; /* Space between label and input */
+  flex: 1; /* Ensures equal distribution of space */
+  max-width: 45%; /* Match the total width of Email's label + input */
+}
+
+/* Labels */
+.input-pair label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #00557f;
+  flex-shrink: 0; /* Prevents labels from shrinking */
+  width: auto; /* Adjust width to fit naturally */
+}
+/* Inputs */
+.input-pair input {
+  flex-grow: 1; /* Allows input to fill the remaining space */
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+.input-pair input[type="file"] {
+  flex-grow: 0; /* Prevents file input from stretching */
+  max-width: 251px; /* Restrict file input width */
+}
+
+form button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #00557f, #1b8ea8);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background: linear-gradient(135deg, #1b8ea8, #00557f);
+}

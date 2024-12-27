@@ -5,6 +5,7 @@ import MainPage from "./pages/MainPage";
 import PasswordRecoveryEmail from "./pages/PasswordRecoveryEmail";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
+import SignUpForm from "./components/SignUpForm";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/main" element={<MainPage />} />
+        <Route path="/signup-form" element={<SignUpForm />} />
 
         {/* Password Recovery Pages */}
         <Route path="/forgot-password" element={<PasswordRecoveryEmail />} />
