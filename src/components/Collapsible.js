@@ -19,6 +19,7 @@ export const Collapsible = ({
     <div className="dropdown">
       <button
         className="title"
+        type="button"
         style={{ backgroundColor: category.color }}
         onClick={toggleDropdown}
       >

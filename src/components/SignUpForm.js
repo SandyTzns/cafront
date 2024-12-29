@@ -1,14 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Collapsible } from "./Collapsible";
 import categoriesData from "../data/categories.json";
 import "../styles/SignUpForm.css";
 
 function SignUpForm() {
+  const navigate = useNavigate();
   const [selectedInterests, setSelectedInterests] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted", selectedInterests);
+    alert("Vous êtes bien inscrit !");
+    navigate("/main");
   };
 
   const toggleInterest = (category, interest) => {

@@ -4,6 +4,7 @@ import "../styles/InterestButton.css";
 function InterestButton({ interest, isSelected, onClick }) {
   return (
     <button
+      type="button"
       className={`interest-button ${isSelected ? "selected" : ""}`}
       onClick={onClick}
     >
