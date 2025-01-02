@@ -16,15 +16,15 @@ export const Collapsible = ({
   };
 
   return (
-    <div className="dropdown">
+    <div className="collapsible-dropdown">
       <button
-        className="title"
+        className="collapsible-title-button"
         type="button"
         style={{ backgroundColor: category.color }}
         onClick={toggleDropdown}
       >
         <h2>{category.name}</h2>
-        <span className="arrows">
+        <span className="collapsible-arrows">
           {active ? (
             <img src={arrow_up} alt="arrow up" />
           ) : (
@@ -32,8 +32,10 @@ export const Collapsible = ({
           )}
         </span>
       </button>
-      <div className={`collapsible-content ${active ? "show" : ""}`}>
-        <div className="interests">
+      <div
+        className={`collapsible-content ${active ? "collapsible-show" : ""}`}
+      >
+        <div className="collapsible-interests">
           {category.interests.map((interest, index) => (
             <InterestButton
               key={index}

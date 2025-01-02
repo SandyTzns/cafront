@@ -1,10 +1,10 @@
 /* Dropdown */
-.dropdown {
+.collapsible-dropdown {
   width: 100%;
   margin-bottom: 1rem;
 }
 
-.title {
+.collapsible-title-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,12 +18,12 @@
   font-size: 1rem;
 }
 
-.title h2 {
+.collapsible-title-button h2 {
   font-weight: bold;
   font-size: 1rem;
 }
 
-.arrows img {
+.collapsible-arrows img {
   height: 20px;
 }
 
@@ -36,13 +36,13 @@
   border-radius: 5px;
 }
 
-.show {
+.collapsible-show {
   height: auto;
   padding: 1rem;
 }
 
 /* Interests Buttons */
-.interests {
+.collapsible-interests {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;

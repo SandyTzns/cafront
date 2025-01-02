@@ -1,42 +1,171 @@
-/* Navbar styles */
+/* General Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
+  height: 50px;
+  background-color: #9abcc5; /* Background color */
+  color: #2c3e50;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: relative;
+  z-index: 10;
 }
 
-.navbar-left h2 {
-  margin: 0;
-  font-size: 18px;
+/* Navbar Links */
+.navbar a {
+  text-decoration: none; /* Remove underline */
+  color: inherit;
+  display: flex; /* Use flex to center the text */
+  align-items: center; /* Vertically center the text */
+  justify-content: center; /* Center the text horizontally */
+  height: 100%; /* Take the full height of the navbar */
+  padding: 0 1.5rem; /* Add horizontal padding for spacing */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  font-weight: normal; /* Default font weight */
 }
 
+/* Hover Effect */
+.navbar a:hover {
+  background-color: #85a9b3; /* Slightly darker shade of navbar */
+}
+
+/* Active Link (Same as Hover) */
+.navbar-active-link {
+  background-color: #85a9b3; /* Same as hover color */
+  font-weight: bold; /* Keep bold for active link */
+  color: white; /* White text for active link */
+  border-bottom: none; /* Remove the underline (border issue) */
+}
+
+/* Navbar Title */
+#navbar-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  text-decoration: none;
+  cursor: pointer;
+  transition: none;
+}
+
+/* Override General Link Hover for Navbar Title */
+#navbar-title:hover {
+  background-color: transparent; /* No hover background */
+  color: #2c3e50; /* Keep the original color */
+  font-weight: bold; /* Always bold */
+}
+
+/* Navbar Right */
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 1.5rem; /* Add spacing between links */
+  flex-grow: 1;
+  justify-content: space-evenly;
 }
 
-.navbar-right a {
-  color: white;
+/************************ DROPDOWN STYLING ************************/
+.navbar-dropdown {
+  position: relative;
+}
+
+.navbar-dropdown-title {
+  cursor: pointer;
+  color: #2c3e50;
+  box-sizing: border-box; /* Include padding in calculations */
+  padding: 12px 1.5rem; /* Add consistent top-bottom and left-right padding */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-dropdown-title:hover {
+  background-color: #85a9b3; /* Slightly darker shade of navbar */
+  height: 100%;
+}
+
+.navbar-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%; /* Center the dropdown under the parent */
+  transform: translateX(-50%); /* Adjust for perfect centering */
+  background-color: #9abcc5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  z-index: 1000;
+  border-radius: 4px;
+  white-space: nowrap; /* Prevent text from wrapping */
+  min-width: max-content; /* Adjust width dynamically to fit content */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition for visibility */
+  opacity: 0;
+  visibility: hidden;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Fix: Keep Dropdown Open When Hovering */
+.navbar-dropdown:hover .navbar-dropdown-content {
+  display: block;
+  opacity: 1; /* Make it fully visible */
+  visibility: visible; /* Ensure it's visible */
+}
+
+/* Links in Dropdown */
+.navbar-dropdown-content a,
+.navbar-logout-link {
+  display: block;
+  padding: 0.5rem 1rem;
   text-decoration: none;
-  font-size: 14px;
-}
-
-.navbar-right a:hover {
-  text-decoration: underline;
-}
-
-.logout-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
+  color: #2c3e50;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.logout-btn:hover {
-  color: #ff6347; /* Logout button hover color */
+.navbar-dropdown-content a:hover,
+.navbar-logout-link:hover {
+  background-color: #f0f0f0;
+  color: #1a4966;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar-right {
+    display: none; /* Hide links by default */
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 10px); /* Dropdown below navbar */
+    right: 0;
+    background-color: #9abcc5;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    border-radius: 4px;
+  }
+
+  .navbar-right.active {
+    display: flex; /* Show links when hamburger is clicked */
+  }
+
+  .navbar-hamburger {
+    display: block;
+    cursor: pointer;
+  }
+
+  .navbar-hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: #2c3e50;
+    margin: 5px 0;
+  }
+}
+
+/* Hamburger Hidden on Desktop */
+.navbar-hamburger {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navbar-hamburger {
+    display: block;
+  }
 }

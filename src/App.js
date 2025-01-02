@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import MainPage from "./pages/MainPage";
+import Dashboard from "./pages/Dashboard";
 import CreatePost from "./pages/CreatePost";
 import PasswordRecoveryEmail from "./pages/PasswordRecoveryEmail";
 import ResetPassword from "./pages/ResetPassword";
@@ -17,6 +18,7 @@ function App() {
         <Route path="/main" element={<MainPage />} />
         <Route path="/signup-form" element={<SignUpForm />} />
         <Route path="/newpost" element={<CreatePost />} />
+        <Route path="/dashboard" element={<Dashboard />} />
 
         {/* Password Recovery Pages */}
         <Route path="/forgot-password" element={<PasswordRecoveryEmail />} />
