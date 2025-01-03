@@ -8,7 +8,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <NavLink to="/" id="navbar-title">
+        <NavLink to="/accueil" id="navbar-title">
           COEUR ALIZÉS SPIRIT [L'Art du Positif]
         </NavLink>
       </div>
@@ -17,7 +17,7 @@ function Navbar() {
           <span className="navbar-dropdown-title">Publications</span>
           <div className="navbar-dropdown-content">
             <NavLink
-              to="/create-post"
+              to="/nouveau-post"
               className={({ isActive }) =>
                 isActive ? "navbar-active-link" : undefined
               }
@@ -43,7 +43,7 @@ function Navbar() {
           </div>
         </div>
         <NavLink
-          to="/about"
+          to="/a-propos"
           className={({ isActive }) =>
             isActive ? "navbar-active-link" : undefined
           }

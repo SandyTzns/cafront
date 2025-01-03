@@ -3,9 +3,9 @@
   display: flex;
   justify-content: space-between;
   height: 50px;
-  background-color: #9abcc5; /* Background color */
+  background-color: #9abcc5;
   color: #2c3e50;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 10;
 }

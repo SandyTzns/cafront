@@ -12,7 +12,7 @@ function SignUpForm() {
     e.preventDefault();
     console.log("Form submitted", selectedInterests);
     alert("Vous êtes bien inscrit !");
-    navigate("/main");
+    navigate("/accueil");
   };
 
   const toggleInterest = (category, interest) => {

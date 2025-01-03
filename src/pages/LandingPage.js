@@ -17,7 +17,7 @@ function LandingPage() {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/auth");
+    navigate("/accueil");
   };
 
   return (
@@ -37,7 +37,7 @@ function LandingPage() {
           Notre plateforme vous est ouverte pour ce partage
         </p>
         <button className="connect-button offset" onClick={handleNavigate}>
-          CONNECTEZ-VOUS
+          ENTREZ
         </button>
       </div>
     </div>

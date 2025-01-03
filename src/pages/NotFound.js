@@ -5,7 +5,7 @@ function NotFound() {
   return (
     <div className="not-found-page">
       <h1>404 - Page non trouvée</h1>
-      <button onClick={() => (window.location.href = "/auth")}>
+      <button onClick={() => (window.location.href = "/accueil")}>
         Retour à l'accueil
       </button>
     </div>

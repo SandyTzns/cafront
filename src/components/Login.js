@@ -9,7 +9,7 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     // Placeholder for authentication logic
-    navigate("/main"); // Navigate to Main Page
+    navigate("/accueil"); // Navigate to Main Page
   };
 
   const handleForgotPassword = () => {

@@ -5,7 +5,6 @@ import "../styles/CreatePost.css";
 function CreatePost() {
   return (
     <div>
-      <Navbar />
       <div className="create-post-container">
         <main>
           <h2>Diffusez votre coup de coeur</h2>
@@ -50,9 +49,6 @@ function CreatePost() {
           </form>
         </main>
       </div>
-      <footer className="create-post-footer">
-        <p>Coeur Alizés Spirit 2024</p>
-      </footer>
     </div>
   );
 }
