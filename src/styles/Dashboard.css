@@ -6,6 +6,7 @@
   min-height: calc(100vh - 50px); /* Adjust for header/footer heights */
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 /* Placeholder for other sections */
