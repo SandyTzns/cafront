@@ -1,0 +1,130 @@
+.npf-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 15px;
+
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.npf-input-area {
+  display: flex;
+  align-items: center;
+}
+
+.npf-profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.npf-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 10px;
+  background-color: #f2f4f7;
+  cursor: pointer;
+}
+
+.npf-input::placeholder {
+  color: #606366;
+}
+
+.npf-input:hover {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.npf-separator {
+  margin: 15px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.npf-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.npf-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  color: #606366;
+  font-weight: 500;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.npf-button:hover {
+  background-color: #f2f4f7;
+  border-radius: 10px;
+}
+
+.npf-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* Modal Overlay */
+.npf-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.npf-modal-container {
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px;
+  position: relative;
+}
+
+/* Modal Header */
+.npf-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.npf-modal-header h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.npf-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Modal Content */
+.npf-modal-content {
+  padding: 10px 0;
+  font-size: 1rem;
+  color: #606366;
+}

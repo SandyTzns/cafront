@@ -1,0 +1,47 @@
+/* Modal Overlay */
+.npf-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.npf-modal-container {
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 20px;
+}
+
+/* Modal Content Header */
+.npf-modal-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.npf-modal-header p {
+  align-self: center;
+}
+
+.npf-modal-header h3 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.npf-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
