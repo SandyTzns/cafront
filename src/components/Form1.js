@@ -1,89 +1,139 @@
+// Form1.js
 import React, { useState } from "react";
 import "../styles/Form1.css";
-import contenuIcon from "../assets/images/contenu.png";
 import MediaUpload from "./MediaUpload";
-import CategorySelector from "./CategorySelector"; // Import the updated CategorySelector
+import CategorySelector from "./CategorySelector";
+import contenuIcon from "../assets/images/contenu.png";
 
-function Form1() {
-  // State variables
+function Form1({ initialView, onSubmit, closeModal }) {
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [showMediaUpload, setShowMediaUpload] = useState(false);
-  const [title, setTitle] = useState(""); // For title input
+  const [isMediaUploadVisible, setIsMediaUploadVisible] = useState(
+    initialView === "media"
+  );
+  const [title, setTitle] = useState("");
+  const [textAreaValue, setTextAreaValue] = useState("");
+  const [selectedSubCategories, setSelectedSubCategories] = useState([]);
+  const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
 
-  const handleCategoryChange = (categoryName, subCats) => {
+  const handleCategoryChange = (categoryName, subCategories, categoryColor) => {
     setSelectedCategory(categoryName);
+    setSelectedSubCategories([]); // Reset selected subcategories when category changes
+    setSelectedCategoryColor(categoryColor || "#ddd");
+  };
+
+  const handleSubCategorySelect = (subcategory) => {
+    setSelectedSubCategories((prev) => {
+      const updatedSubs = prev.includes(subcategory)
+        ? prev.filter((sub) => sub !== subcategory) // Remove if deselected
+        : [...prev, subcategory]; // Add if selected
+      console.log("Updated Subcategories:", updatedSubs); // Debug log
+      return updatedSubs;
+    });
   };
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
-  const handleAddMediaClick = () => {
-    setShowMediaUpload(true); // Show the media upload section
+  const handleTextChange = (e) => {
+    setTextAreaValue(e.target.value);
   };
 
-  const handlePublish = (e) => {
-    e.preventDefault();
-    if (!selectedCategory) {
-      alert("Please choose a category!");
+  const handleAddMediaClick = () => {
+    setIsMediaUploadVisible(true);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    if (!selectedCategory || !textAreaValue) {
+      alert("Please fill in all required fields!");
       return;
     }
-    alert(`Form submitted! Title: ${title}`); // Replace with actual form submission logic
+
+    const newPost = {
+      id: Date.now(),
+      profilePic: "path/to/profile-pic.jpg", // Replace with a dynamic profile pic
+      category: selectedCategory,
+      categoryColor: selectedCategoryColor, // Pass the category color
+      subcategories: selectedSubCategories,
+      title,
+      content: textAreaValue,
+      timestamp: new Date(),
+    };
+
+    console.log("New Post Data:", newPost);
+    onSubmit(newPost); // Pass the new post to Dashboard
+    setTitle("");
+    setTextAreaValue("");
+    setSelectedCategory("");
+    setSelectedSubCategories([]);
+    setSelectedCategoryColor("");
+    setIsMediaUploadVisible(false); // Reset the form state
+
+    if (closeModal) {
+      closeModal(); // Close the modal
+    }
+
+    console.log("Submitting Post:", {
+      selectedCategory,
+      selectedSubCategories,
+    });
   };
 
   return (
     <div className="form1-container">
-      {/* Category Selector */}
-      <CategorySelector onCategoryChange={handleCategoryChange} />
-
-      {/* Input Field for Title */}
-      <div className="form1-title-field">
-        <label htmlFor="title">Titre: </label>
-        <input
-          type="text"
-          id="title"
-          className="form1-title-input"
-          placeholder="Enter a title"
-          value={title}
-          onChange={handleTitleChange}
+      <form onSubmit={handleFormSubmit}>
+        <CategorySelector
+          onCategoryChange={handleCategoryChange}
+          onSubCategorySelect={handleSubCategorySelect}
         />
-      </div>
 
-      {/* Input Field */}
-      <textarea
-        className="form1-input"
-        placeholder="What's on your mind?"
-        rows="4"
-      ></textarea>
+        <div className="form1-title-field">
+          <label htmlFor="title">Titre: </label>
+          <input
+            type="text"
+            id="title"
+            className="form1-title-input"
+            value={title}
+            onChange={handleTitleChange}
+          />
+        </div>
 
-      {/* Media Section */}
-      <div className="form1-media-section">
-        <p>Ajouter à la publication:</p>
-        <img
-          src={contenuIcon} // Adjust the path to your image
-          alt="Add Media"
-          className="form1-media-image"
-          onClick={handleAddMediaClick} // Keep the same logic
-        />
-      </div>
+        <textarea
+          className="form1-input"
+          placeholder="What's on your mind?"
+          rows="4"
+          value={textAreaValue}
+          onChange={handleTextChange}
+        ></textarea>
 
-      {/* Media Upload Box */}
-      {showMediaUpload && (
-        <MediaUpload
-          onFileSelect={(files) => console.log("Selected files:", files)} // Handle file selection
-          acceptTypes="image/*,video/*" // Customize accepted file types
-          multiple // Allow multiple file selection
-        />
-      )}
+        {isMediaUploadVisible && (
+          <MediaUpload
+            onFileSelect={(files) => console.log("Selected files:", files)}
+            acceptTypes="image/*,video/*"
+            multiple
+          />
+        )}
 
-      {/* Publish Button */}
-      <button
-        className="form1-publish-button"
-        onClick={handlePublish}
-        disabled={!selectedCategory}
-      >
-        Publish
-      </button>
+        <div className="form1-media-section">
+          <p>Ajouter à la publication:</p>
+          <img
+            src={contenuIcon}
+            alt="Add Media"
+            className="form1-media-image"
+            onClick={handleAddMediaClick}
+          />
+        </div>
+
+        <button
+          className="form1-publish-button"
+          type="submit"
+          disabled={!selectedCategory}
+        >
+          Publish
+        </button>
+      </form>
     </div>
   );
 }

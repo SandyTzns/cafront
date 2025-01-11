@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-height: 90vh; /* Limit height to 90% of the viewport */
-  overflow-y: auto;
 }
 
 .form1-cat-field {

@@ -18,3 +18,39 @@
   border-color: #aaa;
   background-color: #f1f1f1;
 }
+
+/* Media View Styles */
+.media-upload-container.media-view {
+  height: 200px; /* Set specific height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ccc; /* Keep border styling */
+  background-color: #f9f9f9; /* Keep subtle background */
+}
+
+.media-upload-container.media-view p {
+  margin: 0;
+  font-size: 14px; /* Ensure text is readable */
+  color: #666; /* Neutral color */
+}
+
+.media-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center; /* Center the media previews */
+  max-height: 300px; /* Limit preview height */
+  overflow-y: auto;
+}
+
+.media-preview-item img,
+.media-preview-item video {
+  max-width: 100%; /* Responsive width */
+  max-height: 300px; /* Set a reasonable height */
+  object-fit: contain; /* Preserve aspect ratio */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

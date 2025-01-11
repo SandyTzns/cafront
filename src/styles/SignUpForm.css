@@ -86,7 +86,7 @@ form {
   max-width: 251px; /* Restrict file input width */
 }
 
-form button {
+form .signupform-btn {
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
   font-weight: bold;
@@ -98,6 +98,6 @@ form button {
   transition: background 0.3s ease;
 }
 
-form button:hover {
+form .signupform-btn:hover {
   background: linear-gradient(135deg, #1b8ea8, #00557f);
 }

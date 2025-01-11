@@ -10,7 +10,12 @@
   align-items: center;
 }
 
-/* Placeholder for other sections */
+/* Placeholder for other sections
 .dashboard-content {
   flex: 1;
+} */
+
+.post-list-container {
+  width: 75%; /* Set to 3/4 of the page */
+  max-width: 800px; /* Optional: Set a max width for larger screens */
 }

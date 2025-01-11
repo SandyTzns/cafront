@@ -97,7 +97,9 @@ function SignUpForm() {
             ))}
           </div>
         </div>
-        <button type="submit">Créer un compte</button>
+        <button type="submit" className="signupform-btn">
+          Créer un compte
+        </button>
       </form>
     </div>
   );

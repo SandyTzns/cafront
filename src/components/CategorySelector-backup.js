@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import categories from "../data/categories.json";
 import "../styles/CategorySelector.css";
 
-function CategorySelector({ onCategoryChange, onSubCategorySelect }) {
+function CategorySelector({ onCategoryChange }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
@@ -13,47 +13,21 @@ function CategorySelector({ onCategoryChange, onSubCategorySelect }) {
 
     // Find and update sub-categories based on the selected category
     const category = categories.find((cat) => cat.name === categoryName);
-    const categoryColor = category?.color;
-
     setSubCategories(category ? category.interests : []);
 
     if (onCategoryChange) {
-      onCategoryChange(
-        categoryName,
-        category ? category.interests : [],
-        categoryColor
-      );
+      onCategoryChange(categoryName, category ? category.interests : []);
     }
     setShowDropdown(false); // Close dropdown after selection
   };
 
-  // const handleSubCategoryClick = (subCategory) => {
-  //   if (selectedSubCategories.includes(subCategory)) {
-  //     setSelectedSubCategories(
-  //       selectedSubCategories.filter((s) => s !== subCategory)
-  //     );
-  //   } else {
-  //     setSelectedSubCategories([...selectedSubCategories, subCategory]);
-  //   }
-
-  //   if (onCategoryChange) {
-  //     onCategoryChange(
-  //       selectedCategory,
-  //       [...selectedSubCategories, subCategory], // Pass updated subcategories
-  //       selectedCategoryColor
-  //     );
-  //   }
-  // };
-
   const handleSubCategoryClick = (subCategory) => {
-    const updatedSubCategories = selectedSubCategories.includes(subCategory)
-      ? selectedSubCategories.filter((s) => s !== subCategory)
-      : [...selectedSubCategories, subCategory];
-
-    setSelectedSubCategories(updatedSubCategories);
-
-    if (onSubCategorySelect) {
-      onSubCategorySelect(updatedSubCategories); // Pass updated subcategories
+    if (selectedSubCategories.includes(subCategory)) {
+      setSelectedSubCategories(
+        selectedSubCategories.filter((s) => s !== subCategory)
+      );
+    } else {
+      setSelectedSubCategories([...selectedSubCategories, subCategory]);
     }
   };
 
