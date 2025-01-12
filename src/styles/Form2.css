@@ -1,0 +1,128 @@
+.form2-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 90vh; /* Limit height to 90% of the viewport */
+  overflow-y: auto;
+}
+
+.form2-container .media-upload-container {
+  height: 300px; /* Larger height specifically for Form2 */
+  padding: 25px; /* Increased padding */
+  font-size: 18px; /* Bigger font for instructions */
+}
+
+.form2-cat-field {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.form2-dropdown {
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form2-title-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.form2-title-field label {
+  font-size: 0.8rem;
+  color: #606366;
+}
+.form2-title-input {
+  padding: 1px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  outline: none;
+}
+
+.form2-title-field input::placeholder {
+  color: #ccc;
+  opacity: 1;
+  font-size: 12px;
+  padding-left: 5px;
+  font-weight: 500;
+}
+
+.form2-title-input:focus::placeholder {
+  opacity: 0;
+}
+
+.form2-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  background: #f9f9f9;
+}
+
+.form2-input::placeholder {
+  color: #ccc; /* Adjust placeholder color */
+  opacity: 1; /* Ensures visibility */
+}
+
+.form2-input:focus::placeholder {
+  opacity: 0; /* Makes the placeholder disappear on focus */
+}
+
+.form2-media-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form2-text-icon {
+  height: 24px; /* Adjust the height */
+  width: 24px; /* Adjust the width */
+  cursor: pointer;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.form2-text-icon:hover {
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.form2-media-section p {
+  font-size: 0.8rem;
+  color: #606366;
+  font-weight: bold;
+}
+
+.form2-media-image {
+  height: 40px;
+  cursor: pointer;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.form2-media-image:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.form2-publish-button {
+  padding: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form2-publish-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
