@@ -7,6 +7,7 @@ import textIcon from "../assets/images/text.png";
 
 function Form2({ initialView, onSubmit, closeModal }) {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
   const [title, setTitle] = useState("");
@@ -14,18 +15,15 @@ function Form2({ initialView, onSubmit, closeModal }) {
 
   const handleCategoryChange = (categoryName, subCategories, categoryColor) => {
     setSelectedCategory(categoryName);
+    setSubCategories(subCategories || []); // Set available subcategories
     setSelectedSubCategories([]); // Reset subcategories when category changes
     setSelectedCategoryColor(categoryColor || "#ddd");
   };
 
-  const handleSubCategorySelect = (subcategory) => {
-    setSelectedSubCategories((prev) => {
-      const updatedSubs = prev.includes(subcategory)
-        ? prev.filter((sub) => sub !== subcategory) // Remove if deselected
-        : [...prev, subcategory]; // Add if selected
-      console.log("Updated Subcategories:", updatedSubs); // Debug log
-      return updatedSubs;
-    });
+  const handleSubCategorySelect = (subcategoryArray) => {
+    // Just set the array directly; no need to nest it
+    setSelectedSubCategories(subcategoryArray);
+    console.log("Updated Subcategories (flat array):", subcategoryArray); // Debug log
   };
 
   const handleTitleChange = (e) => {
@@ -33,7 +31,7 @@ function Form2({ initialView, onSubmit, closeModal }) {
   };
 
   const toggleTextArea = () => {
-    setIsTextAreaVisible((prev) => !prev);
+    setIsTextAreaVisible((prev) => !prev); // Toggle visibility
   };
 
   const handleFormSubmit = (event) => {
@@ -49,7 +47,7 @@ function Form2({ initialView, onSubmit, closeModal }) {
       profilePic: "path/to/profile-pic.jpg",
       category: selectedCategory,
       categoryColor: selectedCategoryColor,
-      subcategories: selectedSubCategories,
+      subcategories: [...selectedSubCategories], // Ensure flat array
       title,
       content: isTextAreaVisible ? "Optional comment here" : "",
       timestamp: new Date(),
@@ -73,7 +71,7 @@ function Form2({ initialView, onSubmit, closeModal }) {
       <form onSubmit={handleFormSubmit}>
         <CategorySelector
           onCategoryChange={handleCategoryChange}
-          onSubCategorySelect={handleSubCategorySelect}
+          onSubCategorySelect={handleSubCategorySelect} // Use the updated logic
         />
 
         <div className="form2-title-field">
@@ -108,6 +106,8 @@ function Form2({ initialView, onSubmit, closeModal }) {
             className="form2-input"
             placeholder="Add your comment here..."
             rows="4"
+            value={title} // Ensure controlled component for text area
+            onChange={(e) => setTitle(e.target.value)}
           ></textarea>
         )}
 

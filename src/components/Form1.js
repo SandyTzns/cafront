@@ -7,6 +7,7 @@ import contenuIcon from "../assets/images/contenu.png";
 
 function Form1({ initialView, onSubmit, closeModal }) {
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [subCategories, setSubCategories] = useState([]);
   const [isMediaUploadVisible, setIsMediaUploadVisible] = useState(
     initialView === "media"
   );
@@ -17,18 +18,15 @@ function Form1({ initialView, onSubmit, closeModal }) {
 
   const handleCategoryChange = (categoryName, subCategories, categoryColor) => {
     setSelectedCategory(categoryName);
+    setSubCategories(subCategories || []); // Set available subcategories
     setSelectedSubCategories([]); // Reset selected subcategories when category changes
     setSelectedCategoryColor(categoryColor || "#ddd");
   };
 
-  const handleSubCategorySelect = (subcategory) => {
-    setSelectedSubCategories((prev) => {
-      const updatedSubs = prev.includes(subcategory)
-        ? prev.filter((sub) => sub !== subcategory) // Remove if deselected
-        : [...prev, subcategory]; // Add if selected
-      console.log("Updated Subcategories:", updatedSubs); // Debug log
-      return updatedSubs;
-    });
+  const handleSubCategorySelect = (subcategoryArray) => {
+    // Just set the array directly; no need to nest it
+    setSelectedSubCategories(subcategoryArray);
+    console.log("Updated Subcategories (flat array):", subcategoryArray); // Debug log
   };
 
   const handleTitleChange = (e) => {
@@ -40,14 +38,16 @@ function Form1({ initialView, onSubmit, closeModal }) {
   };
 
   const handleAddMediaClick = () => {
-    setIsMediaUploadVisible(true);
+    setIsMediaUploadVisible((prev) => !prev); // Toggle visibility
   };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    console.log("Form Subcategories Before Submit:", selectedSubCategories);
 
     if (!selectedCategory || !textAreaValue) {
       alert("Please fill in all required fields!");
+
       return;
     }
 
@@ -56,11 +56,12 @@ function Form1({ initialView, onSubmit, closeModal }) {
       profilePic: "path/to/profile-pic.jpg", // Replace with a dynamic profile pic
       category: selectedCategory,
       categoryColor: selectedCategoryColor, // Pass the category color
-      subcategories: selectedSubCategories,
+      subcategories: [...selectedSubCategories], // Ensure flat array
       title,
       content: textAreaValue,
       timestamp: new Date(),
     };
+    console.log("Submitting Post:", newPost);
 
     console.log("New Post Data:", newPost);
     onSubmit(newPost); // Pass the new post to Dashboard
@@ -86,7 +87,7 @@ function Form1({ initialView, onSubmit, closeModal }) {
       <form onSubmit={handleFormSubmit}>
         <CategorySelector
           onCategoryChange={handleCategoryChange}
-          onSubCategorySelect={handleSubCategorySelect}
+          onSubCategorySelect={handleSubCategorySelect} // Use the updated logic
         />
 
         <div className="form1-title-field">

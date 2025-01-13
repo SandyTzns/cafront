@@ -50,6 +50,8 @@ function CategorySelector({ onCategoryChange, onSubCategorySelect }) {
       ? selectedSubCategories.filter((s) => s !== subCategory)
       : [...selectedSubCategories, subCategory];
 
+    console.log("Updated Subcategories (after click):", updatedSubCategories); //
+
     setSelectedSubCategories(updatedSubCategories);
 
     if (onSubCategorySelect) {
@@ -60,6 +62,9 @@ function CategorySelector({ onCategoryChange, onSubCategorySelect }) {
   const selectedCategoryColor = categories.find(
     (cat) => cat.name === selectedCategory
   )?.color;
+
+  console.log("Rendering Subcategories:", subCategories);
+  console.log("Currently Selected Subcategories:", selectedSubCategories);
 
   return (
     <div className="category-selector-container">
