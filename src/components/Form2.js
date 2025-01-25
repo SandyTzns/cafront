@@ -1,4 +1,3 @@
-// Form2.js
 import React, { useState } from "react";
 import "../styles/Form2.css"; // Reusing the same styles as Form1
 import MediaUpload from "./MediaUpload";
@@ -12,6 +11,9 @@ function Form2({ initialView, onSubmit, closeModal }) {
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
   const [title, setTitle] = useState("");
   const [isTextAreaVisible, setIsTextAreaVisible] = useState(false); // For toggling text area
+  const [mediaFiles, setMediaFiles] = useState([]); // State for media files
+
+  const useSimpleCategories = true; // Toggle this to switch data sources
 
   const handleCategoryChange = (categoryName, subCategories, categoryColor) => {
     setSelectedCategory(categoryName);
@@ -21,9 +23,8 @@ function Form2({ initialView, onSubmit, closeModal }) {
   };
 
   const handleSubCategorySelect = (subcategoryArray) => {
-    // Just set the array directly; no need to nest it
     setSelectedSubCategories(subcategoryArray);
-    console.log("Updated Subcategories (flat array):", subcategoryArray); // Debug log
+    console.log("Updated Subcategories (flat array):", subcategoryArray);
   };
 
   const handleTitleChange = (e) => {
@@ -50,6 +51,7 @@ function Form2({ initialView, onSubmit, closeModal }) {
       subcategories: [...selectedSubCategories], // Ensure flat array
       title,
       content: isTextAreaVisible ? "Optional comment here" : "",
+      mediaFiles,
       timestamp: new Date(),
     };
 
@@ -70,8 +72,9 @@ function Form2({ initialView, onSubmit, closeModal }) {
     <div className="form2-container">
       <form onSubmit={handleFormSubmit}>
         <CategorySelector
+          options={{ useSimpleCategories }} // Pass the flag to CategorySelector
           onCategoryChange={handleCategoryChange}
-          onSubCategorySelect={handleSubCategorySelect} // Use the updated logic
+          onSubCategorySelect={handleSubCategorySelect}
         />
 
         <div className="form2-title-field">
@@ -86,7 +89,7 @@ function Form2({ initialView, onSubmit, closeModal }) {
         </div>
 
         <MediaUpload
-          onFileSelect={(files) => console.log("Selected files:", files)}
+          onFileSelect={(files) => setMediaFiles(files)}
           acceptTypes="image/*,video/*"
           multiple
         />

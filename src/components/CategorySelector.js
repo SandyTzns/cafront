@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import categories from "../data/categories.json";
+import simpleCategories from "../data/categories_simple.json";
 import "../styles/CategorySelector.css";
 
-function CategorySelector({ onCategoryChange, onSubCategorySelect }) {
+function CategorySelector({ options, onCategoryChange, onSubCategorySelect }) {
+  const { useSimpleCategories } = options || {};
+  const data = useSimpleCategories ? simpleCategories : categories;
+
   const [selectedCategory, setSelectedCategory] = useState("");
   const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
@@ -12,45 +16,27 @@ function CategorySelector({ onCategoryChange, onSubCategorySelect }) {
     setSelectedCategory(categoryName);
 
     // Find and update sub-categories based on the selected category
-    const category = categories.find((cat) => cat.name === categoryName);
+    const category = data.find((cat) => cat.name === categoryName); // Use `data` here
     const categoryColor = category?.color;
 
-    setSubCategories(category ? category.interests : []);
+    setSubCategories(category?.interests || []); // If no subcategories, fallback to an empty array
 
     if (onCategoryChange) {
       onCategoryChange(
         categoryName,
-        category ? category.interests : [],
+        category?.interests || [], // Pass subcategories if available
         categoryColor
       );
     }
     setShowDropdown(false); // Close dropdown after selection
   };
 
-  // const handleSubCategoryClick = (subCategory) => {
-  //   if (selectedSubCategories.includes(subCategory)) {
-  //     setSelectedSubCategories(
-  //       selectedSubCategories.filter((s) => s !== subCategory)
-  //     );
-  //   } else {
-  //     setSelectedSubCategories([...selectedSubCategories, subCategory]);
-  //   }
-
-  //   if (onCategoryChange) {
-  //     onCategoryChange(
-  //       selectedCategory,
-  //       [...selectedSubCategories, subCategory], // Pass updated subcategories
-  //       selectedCategoryColor
-  //     );
-  //   }
-  // };
-
   const handleSubCategoryClick = (subCategory) => {
     const updatedSubCategories = selectedSubCategories.includes(subCategory)
       ? selectedSubCategories.filter((s) => s !== subCategory)
       : [...selectedSubCategories, subCategory];
 
-    console.log("Updated Subcategories (after click):", updatedSubCategories); //
+    console.log("Updated Subcategories (after click):", updatedSubCategories);
 
     setSelectedSubCategories(updatedSubCategories);
 
@@ -59,12 +45,9 @@ function CategorySelector({ onCategoryChange, onSubCategorySelect }) {
     }
   };
 
-  const selectedCategoryColor = categories.find(
+  const selectedCategoryColor = data.find(
     (cat) => cat.name === selectedCategory
   )?.color;
-
-  console.log("Rendering Subcategories:", subCategories);
-  console.log("Currently Selected Subcategories:", selectedSubCategories);
 
   return (
     <div className="category-selector-container">
@@ -91,7 +74,7 @@ function CategorySelector({ onCategoryChange, onSubCategorySelect }) {
         </div>
         {showDropdown && (
           <ul className="dropdown-options">
-            {categories.map((category) => (
+            {data.map((category) => (
               <li
                 key={category.name}
                 className="dropdown-option"

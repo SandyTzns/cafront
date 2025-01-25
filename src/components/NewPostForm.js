@@ -1,4 +1,3 @@
-// NewPostForm.js
 import React, { useState } from "react";
 import "../styles/NewPostForm.css";
 import Logo from "../assets/images/logo.png";
@@ -13,6 +12,8 @@ function NewPostForm({ onPostSubmit }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialView, setInitialView] = useState("text");
   const [activeForm, setActiveForm] = useState("Form1"); // Track active form
+
+  const useSimpleCategories = true; // Toggle to switch category data source
 
   const openModal = (view, form) => {
     setInitialView(view);
@@ -63,6 +64,7 @@ function NewPostForm({ onPostSubmit }) {
             initialView={initialView}
             onSubmit={onPostSubmit}
             closeModal={closeModal}
+            useSimpleCategories={useSimpleCategories} // Pass the flag to Form1
           />
         )}
         {activeForm === "Form2" && (
@@ -70,6 +72,7 @@ function NewPostForm({ onPostSubmit }) {
             initialView={initialView}
             onSubmit={onPostSubmit}
             closeModal={closeModal}
+            useSimpleCategories={useSimpleCategories} // Pass the flag to Form2
           />
         )}
       </Modal>

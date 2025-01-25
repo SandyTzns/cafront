@@ -39,6 +39,7 @@ function Post({ post }) {
   };
 
   const youtubeId = isYouTubeLink(post.content);
+  console.log("Post Data:", post);
 
   return (
     <div className="post">
@@ -50,7 +51,7 @@ function Post({ post }) {
         <div className="post-cat-sub-time">
           <div
             className="post-category"
-            style={{ backgroundColor: post.categoryColor || "#ddd" }} // Use dynamic category color
+            style={{ backgroundColor: post.categoryColor || "#ddd" }}
           >
             {post.category}
           </div>
@@ -93,20 +94,31 @@ function Post({ post }) {
         <p className="post-text">{renderContentWithLinks(post.content)}</p>
       )}
 
-      {post.media && post.media.length > 0 && (
+      {/* Media Files */}
+      {post.mediaFiles && post.mediaFiles.length > 0 && (
         <div className="post-media">
-          {post.media.map((mediaUrl, index) => (
-            <div key={index} className="post-media-item">
-              {mediaUrl.includes("video") ? (
-                <video controls>
-                  <source src={mediaUrl} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              ) : (
-                <img src={mediaUrl} alt={`Media ${index + 1}`} />
-              )}
-            </div>
-          ))}
+          {post.mediaFiles.map((file, index) => {
+            if (!file || typeof file !== "object" || !file.type) {
+              console.warn("Invalid file object in mediaFiles:", file);
+              return null; // Skip invalid entries
+            }
+            return (
+              <div key={index} className="post-media-item">
+                {file.type.startsWith("image/") ? (
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={`Media ${index + 1}`}
+                    className="post-media-image"
+                  />
+                ) : (
+                  <video controls className="post-media-video">
+                    <source src={URL.createObjectURL(file)} type={file.type} />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

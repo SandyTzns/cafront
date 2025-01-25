@@ -1,4 +1,3 @@
-// Form1.js
 import React, { useState } from "react";
 import "../styles/Form1.css";
 import MediaUpload from "./MediaUpload";
@@ -15,6 +14,9 @@ function Form1({ initialView, onSubmit, closeModal }) {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
+  const [mediaFiles, setMediaFiles] = useState([]); // State for media files
+
+  const useSimpleCategories = true; // Toggle this to switch data sources
 
   const handleCategoryChange = (categoryName, subCategories, categoryColor) => {
     setSelectedCategory(categoryName);
@@ -24,9 +26,8 @@ function Form1({ initialView, onSubmit, closeModal }) {
   };
 
   const handleSubCategorySelect = (subcategoryArray) => {
-    // Just set the array directly; no need to nest it
     setSelectedSubCategories(subcategoryArray);
-    console.log("Updated Subcategories (flat array):", subcategoryArray); // Debug log
+    console.log("Updated Subcategories (flat array):", subcategoryArray);
   };
 
   const handleTitleChange = (e) => {
@@ -38,7 +39,7 @@ function Form1({ initialView, onSubmit, closeModal }) {
   };
 
   const handleAddMediaClick = () => {
-    setIsMediaUploadVisible((prev) => !prev); // Toggle visibility
+    setIsMediaUploadVisible((prev) => !prev);
   };
 
   const handleFormSubmit = (event) => {
@@ -47,7 +48,6 @@ function Form1({ initialView, onSubmit, closeModal }) {
 
     if (!selectedCategory || !textAreaValue) {
       alert("Please fill in all required fields!");
-
       return;
     }
 
@@ -55,39 +55,35 @@ function Form1({ initialView, onSubmit, closeModal }) {
       id: Date.now(),
       profilePic: "path/to/profile-pic.jpg", // Replace with a dynamic profile pic
       category: selectedCategory,
-      categoryColor: selectedCategoryColor, // Pass the category color
+      categoryColor: selectedCategoryColor,
       subcategories: [...selectedSubCategories], // Ensure flat array
       title,
       content: textAreaValue,
+      media: mediaFiles,
       timestamp: new Date(),
     };
-    console.log("Submitting Post:", newPost);
 
-    console.log("New Post Data:", newPost);
-    onSubmit(newPost); // Pass the new post to Dashboard
+    console.log("Submitting Post:", newPost);
+    onSubmit(newPost);
     setTitle("");
     setTextAreaValue("");
     setSelectedCategory("");
     setSelectedSubCategories([]);
     setSelectedCategoryColor("");
-    setIsMediaUploadVisible(false); // Reset the form state
+    setIsMediaUploadVisible(false);
 
     if (closeModal) {
-      closeModal(); // Close the modal
+      closeModal();
     }
-
-    console.log("Submitting Post:", {
-      selectedCategory,
-      selectedSubCategories,
-    });
   };
 
   return (
     <div className="form1-container">
       <form onSubmit={handleFormSubmit}>
         <CategorySelector
+          options={{ useSimpleCategories }} // Pass the flag to CategorySelector
           onCategoryChange={handleCategoryChange}
-          onSubCategorySelect={handleSubCategorySelect} // Use the updated logic
+          onSubCategorySelect={handleSubCategorySelect}
         />
 
         <div className="form1-title-field">

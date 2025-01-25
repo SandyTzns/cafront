@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InterestButton from "./InterestButton";
 import "../styles/Collapsible.css";
 import arrow_down from "../assets/images/arrow_down.png";
-import arrow_up from "../assets//images/arrow_up.png";
+import arrow_up from "../assets/images/arrow_up.png";
 
 export const Collapsible = ({
   category,
@@ -36,14 +36,19 @@ export const Collapsible = ({
         className={`collapsible-content ${active ? "collapsible-show" : ""}`}
       >
         <div className="collapsible-interests">
-          {category.interests.map((interest, index) => (
-            <InterestButton
-              key={index}
-              interest={interest}
-              isSelected={selectedInterests.includes(interest)}
-              onClick={() => onToggleInterest(category.name, interest)}
-            />
-          ))}
+          {(category.interests || []).map(
+            (
+              interest,
+              index // Handle missing `interests`
+            ) => (
+              <InterestButton
+                key={index}
+                interest={interest}
+                isSelected={selectedInterests.includes(interest)}
+                onClick={() => onToggleInterest(category.name, interest)}
+              />
+            )
+          )}
         </div>
       </div>
     </div>

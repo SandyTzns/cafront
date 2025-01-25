@@ -1,3 +1,4 @@
+// MediaUpload.js
 import React, { useState, useRef } from "react";
 import "../styles/MediaUpload.css";
 
@@ -9,6 +10,7 @@ function MediaUpload({
   const fileInputRef = useRef(null);
   const [previewFiles, setPreviewFiles] = useState([]); // For file previews
   const [isDragging, setIsDragging] = useState(false);
+  const [mediaUploaded, setMediaUploaded] = useState(false); // Track upload state
 
   // Handle container click to open file input
   const handleContainerClick = () => {
@@ -21,6 +23,7 @@ function MediaUpload({
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
     handleFiles(files);
+    setMediaUploaded(true); // Mark as uploaded
   };
 
   // Handle drag over event
@@ -40,6 +43,7 @@ function MediaUpload({
     setIsDragging(false);
     const files = Array.from(e.dataTransfer.files);
     handleFiles(files);
+    setMediaUploaded(true); // Mark as uploaded
   };
 
   // Resize image files
@@ -98,26 +102,30 @@ function MediaUpload({
   };
 
   return (
-    <div
-      className={`media-upload-container ${isDragging ? "dragging" : ""}`}
-      onClick={handleContainerClick}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
-      <input
-        type="file"
-        ref={fileInputRef}
-        className="media-upload-input"
-        accept={acceptTypes}
-        multiple={multiple}
-        onChange={handleFileChange}
-      />
-      <p>
-        {isDragging
-          ? "Drop the files here ..."
-          : "Drag and drop your files here, or click to upload."}
-      </p>
+    <div>
+      {!mediaUploaded && (
+        <div
+          className={`media-upload-container ${isDragging ? "dragging" : ""}`}
+          onClick={handleContainerClick}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="media-upload-input"
+            accept={acceptTypes}
+            multiple={multiple}
+            onChange={handleFileChange}
+          />
+          <p>
+            {isDragging
+              ? "Drop the files here ..."
+              : "Drag and drop your files here, or click to upload."}
+          </p>
+        </div>
+      )}
       {previewFiles.length > 0 && (
         <div className="media-preview">
           {previewFiles.map((url, index) => (

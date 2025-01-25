@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Collapsible } from "./Collapsible";
-import categoriesData from "../data/categories.json";
+import categories from "../data/categories.json";
+import simpleCategories from "../data/categories_simple.json";
 import "../styles/SignUpForm.css";
 
 function SignUpForm() {
   const navigate = useNavigate();
   const [selectedInterests, setSelectedInterests] = useState({});
+  const useSimpleCategories = true; // Toggle to switch between datasets
+  const categoriesData = useSimpleCategories ? simpleCategories : categories;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -93,6 +96,7 @@ function SignUpForm() {
                 category={category}
                 selectedInterests={selectedInterests[category.name] || []}
                 onToggleInterest={toggleInterest}
+                options={{ useSimpleCategories }} // Pass the flag to Collapsible
               />
             ))}
           </div>

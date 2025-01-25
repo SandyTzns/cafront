@@ -1,11 +1,13 @@
 .post {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  margin: 10px auto; /* Center the post and add spacing between posts */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
+  max-width: 500px; /* Limit the width of the post */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for better visuals */
 }
 
 .post-container {
@@ -74,17 +76,23 @@
 
 .post-media {
   display: flex;
+  justify-content: center; /* Center media horizontally */
+  align-items: center; /* Center media vertically */
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 10px;
+  margin: 10px 0; /* Add consistent spacing around media */
+}
+
+.post-media-item {
+  display: flex;
+  justify-content: center;
 }
 
 .post-media img,
 .post-media video {
-  max-width: 100%; /* Responsive width */
-  height: auto; /* Maintain aspect ratio */
-  object-fit: contain; /* Ensure no distortion */
+  max-width: 90%; /* Prevent media from exceeding the post width */
+  max-height: 250px; /* Keep media from taking up too much vertical space */
+  object-fit: cover; /* Ensure media looks clean and proportional */
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin-top: 10px;
 }
