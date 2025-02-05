@@ -4,13 +4,14 @@ import Logo from "../assets/images/logo.png";
 
 function Post({ post }) {
   const formatTimestamp = (timestamp) => {
+    if (!timestamp) return "";
+
     const diff = Math.floor((new Date() - new Date(timestamp)) / 1000);
     if (diff < 60) return "Just now";
     if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
     if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
     return `${Math.floor(diff / 86400)}d ago`;
   };
-
   const renderContentWithLinks = (content) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return content.split(urlRegex).map((part, index) => {
@@ -39,13 +40,20 @@ function Post({ post }) {
   };
 
   const youtubeId = isYouTubeLink(post.content);
-  console.log("Post Data:", post);
 
   return (
     <div className="post">
       <div className="post-container">
         {/* Profile Picture */}
-        <img src={Logo} alt="Profile" className="post-profile-pic" />
+        <img
+          src={
+            post.profilePic && !post.profilePic.startsWith("http")
+              ? `http://localhost/api/uploads/${post.profilePic}`
+              : post.profilePic || Logo
+          }
+          alt="Profile"
+          className="post-profile-pic"
+        />
 
         {/* Category, Subcategories, and Timestamp */}
         <div className="post-cat-sub-time">
@@ -94,31 +102,28 @@ function Post({ post }) {
         <p className="post-text">{renderContentWithLinks(post.content)}</p>
       )}
 
-      {/* Media Files */}
-      {post.mediaFiles && post.mediaFiles.length > 0 && (
+      {/* Media Files from Backend */}
+      {post.media_paths && post.media_paths.length > 0 && (
         <div className="post-media">
-          {post.mediaFiles.map((file, index) => {
-            if (!file || typeof file !== "object" || !file.type) {
-              console.warn("Invalid file object in mediaFiles:", file);
-              return null; // Skip invalid entries
-            }
-            return (
-              <div key={index} className="post-media-item">
-                {file.type.startsWith("image/") ? (
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt={`Media ${index + 1}`}
-                    className="post-media-image"
+          {post.media_paths.map((file, index) => (
+            <div key={index} className="post-media-item">
+              {file.endsWith(".jpg") || file.endsWith(".png") ? (
+                <img
+                  src={`http://localhost/api/uploads/${file}`}
+                  alt={`Media ${index + 1}`}
+                  className="post-media-image"
+                />
+              ) : (
+                <video controls className="post-media-video">
+                  <source
+                    src={`http://localhost/api/uploads/${file}`}
+                    type="video/mp4"
                   />
-                ) : (
-                  <video controls className="post-media-video">
-                    <source src={URL.createObjectURL(file)} type={file.type} />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-              </div>
-            );
-          })}
+                  Your browser does not support the video tag.
+                </video>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>

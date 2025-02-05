@@ -1,24 +1,23 @@
 import React, { useState } from "react";
-import "../styles/Form2.css"; // Reusing the same styles as Form1
+import "../styles/Form2.css";
 import MediaUpload from "./MediaUpload";
 import CategorySelector from "./CategorySelector";
 import textIcon from "../assets/images/text.png";
+import { savePost, savePostWithMedia } from "../services/postService";
 
-function Form2({ initialView, onSubmit, closeModal }) {
+function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [subCategories, setSubCategories] = useState([]);
   const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
   const [title, setTitle] = useState("");
-  const [isTextAreaVisible, setIsTextAreaVisible] = useState(false); // For toggling text area
-  const [mediaFiles, setMediaFiles] = useState([]); // State for media files
-
-  const useSimpleCategories = true; // Toggle this to switch data sources
+  const [isTextAreaVisible, setIsTextAreaVisible] = useState(false);
+  const [mediaFiles, setMediaFiles] = useState([]);
 
   const handleCategoryChange = (categoryName, subCategories, categoryColor) => {
     setSelectedCategory(categoryName);
-    setSubCategories(subCategories || []); // Set available subcategories
-    setSelectedSubCategories([]); // Reset subcategories when category changes
+    setSubCategories(subCategories || []);
+    setSelectedSubCategories([]);
     setSelectedCategoryColor(categoryColor || "#ddd");
   };
 
@@ -32,10 +31,19 @@ function Form2({ initialView, onSubmit, closeModal }) {
   };
 
   const toggleTextArea = () => {
-    setIsTextAreaVisible((prev) => !prev); // Toggle visibility
+    setIsTextAreaVisible((prev) => !prev);
   };
 
-  const handleFormSubmit = (event) => {
+  const resetForm = () => {
+    setTitle("");
+    setSelectedCategory("");
+    setSelectedSubCategories([]);
+    setSelectedCategoryColor("");
+    setIsTextAreaVisible(false);
+    setMediaFiles([]);
+  };
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     if (!selectedCategory) {
@@ -43,28 +51,40 @@ function Form2({ initialView, onSubmit, closeModal }) {
       return;
     }
 
+    // Build the new post object with text and meta data
     const newPost = {
-      id: Date.now(),
-      profilePic: "path/to/profile-pic.jpg",
+      id: Date.now(), // This is temporary; the backend may generate an ID
+      profilePic: "default-profile-pic.jpg", // default value for now
       category: selectedCategory,
       categoryColor: selectedCategoryColor,
-      subcategories: [...selectedSubCategories], // Ensure flat array
+      subcategories: [...selectedSubCategories],
       title,
-      content: isTextAreaVisible ? "Optional comment here" : "",
-      mediaFiles,
-      timestamp: new Date(),
+      content: isTextAreaVisible ? title : "", // Adjust if you want a separate comment
+      timestamp: new Date().toISOString(),
     };
 
-    console.log("New Post Data:", newPost);
-    onSubmit(newPost);
-    setTitle("");
-    setSelectedCategory("");
-    setSelectedSubCategories([]);
-    setSelectedCategoryColor("");
-    setIsTextAreaVisible(false);
+    try {
+      let response;
+      if (mediaFiles && mediaFiles.length > 0) {
+        // Use the function that handles media uploads
+        response = await savePostWithMedia(newPost, mediaFiles);
+      } else {
+        // Use the text-only function
+        response = await savePost(newPost);
+      }
 
-    if (closeModal) {
-      closeModal();
+      if (response.success) {
+        alert("Post published successfully!");
+        // Optionally, call onSubmit to update parent state if needed
+        if (onSubmit) onSubmit(newPost);
+        resetForm();
+        if (closeModal) closeModal();
+      } else {
+        alert("Failed to publish post.");
+      }
+    } catch (error) {
+      console.error("Error submitting post:", error);
+      alert("An error occurred while publishing the post.");
     }
   };
 
@@ -72,7 +92,7 @@ function Form2({ initialView, onSubmit, closeModal }) {
     <div className="form2-container">
       <form onSubmit={handleFormSubmit}>
         <CategorySelector
-          options={{ useSimpleCategories }} // Pass the flag to CategorySelector
+          options={{ useSimpleCategories }}
           onCategoryChange={handleCategoryChange}
           onSubCategorySelect={handleSubCategorySelect}
         />
@@ -109,7 +129,7 @@ function Form2({ initialView, onSubmit, closeModal }) {
             className="form2-input"
             placeholder="Add your comment here..."
             rows="4"
-            value={title} // Ensure controlled component for text area
+            value={title} // If you want a separate field for comment, consider a new state variable
             onChange={(e) => setTitle(e.target.value)}
           ></textarea>
         )}
