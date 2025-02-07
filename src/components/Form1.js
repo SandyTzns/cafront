@@ -70,7 +70,7 @@ function Form1({ onSubmit, closeModal }) {
             categoryColor: selectedCategoryColor || "#ddd",
             subcategories: selectedSubCategories,
             media_paths: [], // No media in Form1
-            created_at: new Date().toISOString(),
+            created_at: response.data.created_at,
             profilePic: "default-profile-pic.jpg", // Default until user changes it
           });
         }

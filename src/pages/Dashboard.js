@@ -2,19 +2,27 @@ import React, { useState, useEffect } from "react";
 import NewPostForm from "../components/NewPostForm";
 import PostList from "../components/PostList";
 import "../styles/Dashboard.css";
+import { getPost } from "../services/postService"; // Ensure you have this function in your postService
 
 function Dashboard() {
-  // Load posts from localStorage on initial render
-  const [posts, setPosts] = useState(() => {
-    const savedPosts = localStorage.getItem("posts");
-    return savedPosts ? JSON.parse(savedPosts) : [];
-  });
+  // Use local state for posts
+  const [posts, setPosts] = useState([]);
 
-  // Save posts to localStorage whenever they change
+  // On component mount, fetch posts from the backend
   useEffect(() => {
-    localStorage.setItem("posts", JSON.stringify(posts));
-  }, [posts]);
+    const fetchPosts = async () => {
+      try {
+        const fetchedPosts = await getPost();
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
 
+    fetchPosts();
+  }, []);
+
+  // Function to add a new post to the state immediately
   const addNewPost = (post) => {
     setPosts([post, ...posts]);
   };

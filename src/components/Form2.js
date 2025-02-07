@@ -53,14 +53,15 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
 
     // Build the new post object with text and meta data
     const newPost = {
-      id: Date.now(), // This is temporary; the backend may generate an ID
-      profilePic: "default-profile-pic.jpg", // default value for now
+      id: Date.now(), // Temporary ID; will be replaced by the backend-generated ID.
+      profilePic: "default-profile-pic.jpg", // Default value
       category: selectedCategory,
       categoryColor: selectedCategoryColor,
       subcategories: [...selectedSubCategories],
       title,
-      content: isTextAreaVisible ? title : "", // Adjust if you want a separate comment
+      content: isTextAreaVisible ? title : "", // Adjust if you want a separate comment field.
       timestamp: new Date().toISOString(),
+      media_paths: [], // Initially empty.
     };
 
     try {
@@ -75,8 +76,19 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
 
       if (response.success) {
         alert("Post published successfully!");
-        // Optionally, call onSubmit to update parent state if needed
-        if (onSubmit) onSubmit(newPost);
+
+        // Create an updated post object that includes media_paths from the backend.
+        const updatedPost = {
+          ...newPost,
+          id: response.id, // Use the ID returned by the backend.
+          media_paths: response.media_paths
+            ? JSON.parse(response.media_paths)
+            : [],
+        };
+
+        // Call onSubmit with the updated post object so the Dashboard updates immediately.
+        if (onSubmit) onSubmit(updatedPost);
+
         resetForm();
         if (closeModal) closeModal();
       } else {
