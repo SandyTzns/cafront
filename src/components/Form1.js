@@ -46,20 +46,17 @@ function Form1({ onSubmit, closeModal }) {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost/api/post/save_post.php",
-        {
-          category: selectedCategory,
-          categoryColor: selectedCategoryColor || "#ddd",
-          subcategories: selectedSubCategories,
-          title,
-          content: textAreaValue,
-          timestamp: new Date().toISOString(),
-        }
-      );
+      const response = await axios.post("/api/post/save_post.php", {
+        category: selectedCategory,
+        categoryColor: selectedCategoryColor || "#ddd",
+        subcategories: selectedSubCategories,
+        title,
+        content: textAreaValue,
+        timestamp: new Date().toISOString(),
+      });
 
       if (response.data.success) {
-        alert("Post published successfully!");
+        // alert("Votre post a bien été publi!");
         resetForm();
         if (onSubmit && response.data.success) {
           onSubmit({
@@ -105,7 +102,7 @@ function Form1({ onSubmit, closeModal }) {
 
         <textarea
           className="form1-input"
-          placeholder="What's on your mind?"
+          placeholder="Que veux-tu partager ?"
           rows="4"
           value={textAreaValue}
           onChange={handleTextChange}
@@ -116,7 +113,7 @@ function Form1({ onSubmit, closeModal }) {
           type="submit"
           disabled={!selectedCategory}
         >
-          Publish
+          Publier
         </button>
       </form>
     </div>

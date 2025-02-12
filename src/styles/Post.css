@@ -83,6 +83,11 @@
   overflow-wrap: anywhere; /* Allow breaking anywhere in the link */
 }
 
+.post-text a {
+  display: block; /* Forces link to appear on a new line */
+  word-wrap: break-word; /* Breaks long links */
+}
+
 .post-media {
   display: flex;
   justify-content: center; /* Center media horizontally */
@@ -154,4 +159,24 @@
 .post-menu-dropdown li:hover {
   background-color: #85a9b3;
   color: white;
+}
+
+@media screen and (max-width: 600px) {
+  .post-text,
+  .post-title {
+    margin-left: 0px; /* Remove left margin */
+    text-align: left; /* Align text properly */
+  }
+
+  .post-container {
+    gap: 5px; /* Reduce space between posts */
+  }
+
+  .post-profile-pic {
+    margin-left: 5px; /* Adjust profile pic alignment */
+  }
+
+  .post-category {
+    font-size: 11px;
+  }
 }

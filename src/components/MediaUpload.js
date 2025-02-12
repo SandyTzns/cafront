@@ -121,8 +121,8 @@ function MediaUpload({
           />
           <p>
             {isDragging
-              ? "Drop the files here ..."
-              : "Drag and drop your files here, or click to upload."}
+              ? "Déposez les fichiers ici ..."
+              : "Glissez-déposez vos fichiers ici, ou cliquez pour téléverser."}
           </p>
         </div>
       )}

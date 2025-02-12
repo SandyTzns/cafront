@@ -52,17 +52,6 @@
 }
 
 /* Button */
-.connect-button.offset {
-  box-shadow: 0.3em 0.3em 0 0 var(--color, white),
-    inset 0.3em 0.3em 0 0 var(--color, white); /* White color for shadow */
-  transition: box-shadow 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-}
-
-.connect-button.offset:hover,
-.connect-button.offset:focus {
-  box-shadow: 0 0 0 0 var(--hover, lightgray),
-    inset 6em 3.5em 0 0 var(--hover, lightgray); /* Hover effect */
-}
 
 /* Button Base Styles */
 .connect-button {
@@ -82,4 +71,18 @@
 .connect-button:focus {
   color: black; /* Text turns black on hover */
   border-color: lightgray; /* Border matches hover shadow */
+}
+
+@media screen and (max-width: 600px) {
+  .content h1 {
+    font-size: 2rem;
+  }
+
+  .content h1 span {
+    font-size: 2rem;
+  }
+
+  .content p {
+    font-size: 1rem;
+  }
 }

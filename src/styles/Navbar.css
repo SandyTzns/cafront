@@ -169,3 +169,22 @@
     display: block;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .navbar {
+    display: flex;
+    align-items: center; /* Centers the items in the navbar */
+    justify-content: space-around; /* Ensures space between title and hamburger */
+  }
+
+  #navbar-title {
+    font-size: 15px;
+    white-space: nowrap; /* Prevents breaking into two lines */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." if text is too long */
+  }
+
+  .hamburger-menu {
+    margin-right: 10px; /* Adjust margin for better spacing */
+  }
+}

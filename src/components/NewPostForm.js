@@ -32,7 +32,7 @@ function NewPostForm({ onPostSubmit }) {
         <img src={Logo} alt="Profile" className="npf-profile-pic" />
         <input
           type="text"
-          placeholder="What's on your mind?"
+          placeholder="Que veux-tu partager ?"
           className="npf-input"
         />
       </div>

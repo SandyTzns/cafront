@@ -75,7 +75,7 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
       }
 
       if (response.success) {
-        alert("Post published successfully!");
+        // alert("Post published successfully!");
 
         // Create an updated post object that includes media_paths from the backend.
         const updatedPost = {
@@ -151,7 +151,7 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
           type="submit"
           disabled={!selectedCategory}
         >
-          Publish
+          Publier
         </button>
       </form>
     </div>

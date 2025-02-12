@@ -81,7 +81,7 @@ function Form1() {
         onClick={handlePublish}
         disabled={!selectedCategory}
       >
-        Publish
+        Publier
       </button>
     </div>
   );
