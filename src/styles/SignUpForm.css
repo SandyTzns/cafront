@@ -101,3 +101,145 @@ form .signupform-btn {
 form .signupform-btn:hover {
   background: linear-gradient(135deg, #1b8ea8, #00557f);
 }
+.interests-section {
+  display: flex;
+  flex-direction: column; /* Stack title and categories */
+  align-items: flex-start; /* Center align everything */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.interests-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #00557f;
+
+  margin-bottom: 10px; /* Adds spacing before categories */
+}
+
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Two columns */
+  gap: 10px; /* Spacing between categories */
+  width: 100%;
+}
+
+.interest-item {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 300;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.interest-item:hover {
+  background-color: var(--hover-color, #ddd);
+}
+
+.interest-item.selected {
+  background-color: var(--selected-color, #00557f);
+  color: white;
+}
+
+/* Publicité Section */
+.publicite-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.publicite-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #00557f;
+  margin-bottom: 5px;
+}
+
+.publicite-description {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Add Company Button */
+.add-company-btn {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: white;
+  background: #00557f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-company-btn:hover {
+  background: #003f5c;
+}
+
+/* Company Form */
+.company-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.company-form input {
+  padding: 8px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* Company List */
+.company-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.company-list li {
+  font-size: 0.9rem;
+  background: #f4f4f4;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.company-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f4f4;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.delete-company-btn {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.delete-company-btn:hover {
+  transform: scale(1.2);
+}

@@ -66,10 +66,11 @@
   font-size: 13px;
   color: #65686c;
 }
-.post-title,
+/* .post-title,
 .post-text {
-  margin-left: 80px; /* Adjust this value as needed; 80px is an estimate (50px photo + 20px gap + 10px margin) */
-}
+  margin-left: 80px; /* Adjust this value as needed; 80px is an estimate (50px photo + 20px gap + 10px margin) 
+} */
+
 .post-title {
   font-size: 15px;
 }

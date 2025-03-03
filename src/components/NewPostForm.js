@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../styles/NewPostForm.css";
-import Logo from "../assets/images/logo.png";
 import photoIcon from "../assets/images/photo.png";
 import videoIcon from "../assets/images/video.png";
 import musicIcon from "../assets/images/music-store.png";
@@ -29,7 +28,6 @@ function NewPostForm({ onPostSubmit }) {
         className="npf-input-area"
         onClick={() => openModal("text", "Form1")}
       >
-        <img src={Logo} alt="Profile" className="npf-profile-pic" />
         <input
           type="text"
           placeholder="Que veux-tu partager ?"

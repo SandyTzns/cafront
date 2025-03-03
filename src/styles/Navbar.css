@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   height: 50px;
-  background-color: #9abcc5;
+  background-color: #ffff /*#9abcc5*/;
   color: #2c3e50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -89,7 +89,7 @@
   top: 100%;
   left: 50%; /* Center the dropdown under the parent */
   transform: translateX(-50%); /* Adjust for perfect centering */
-  background-color: #9abcc5;
+  background-color: #ffff; /*#9abcc5*/
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 0.5rem;
   z-index: 1000;
