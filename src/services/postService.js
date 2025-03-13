@@ -36,7 +36,6 @@ export const savePostWithMedia = async (post, mediaFiles) => {
     formData.append("content", post.content);
     formData.append("category", post.category);
     formData.append("categoryColor", post.categoryColor);
-    formData.append("subcategories", JSON.stringify(post.subcategories || []));
     formData.append("profilePic", post.profilePic || "default-profile-pic.jpg");
     formData.append("timestamp", post.timestamp || new Date().toISOString());
 
@@ -98,7 +97,6 @@ export const editPost = async (post, mediaFiles) => {
       formData.append("content", post.content);
       formData.append("category", post.category);
       formData.append("categoryColor", post.categoryColor);
-      formData.append("subcategories", JSON.stringify(post.subcategories));
       formData.append("profilePic", post.profilePic);
       // Append each media file.
       for (let i = 0; i < mediaFiles.length; i++) {

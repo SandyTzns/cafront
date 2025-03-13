@@ -127,3 +127,21 @@ input::placeholder {
 .forgot-password:hover {
   text-decoration: underline;
 }
+
+.forgot-password-button {
+  background: none;
+  border: none;
+  color: #00557f; /* Matches theme color */
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap; /* Prevents wrapping */
+  cursor: pointer;
+}
+
+.forgot-password-button:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+}

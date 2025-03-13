@@ -1,61 +1,58 @@
 [
   {
-    "name": "Art et Culture",
-    "color": "#FF6F61",
-    "interests": [
-      "Peinture",
-      "Musique",
-      "Artistique",
-      "Musicale",
-      "Conte",
-      "Littérature"
-    ]
+    "name": "Graphisme & Peinture",
+    "color": "#FF6F61"
   },
   {
-    "name": "Gastronomie et Œnologie",
-    "color": "#FFA500",
-    "interests": ["Plaisirs Gastronomiques", "Viticole"]
+    "name": "Artistique & Musique",
+    "color": "#FFA500"
   },
   {
-    "name": "Loisirs et Détente",
-    "color": "#6B8E23",
-    "interests": ["Vacances", "Détente", "Évènementiel"]
+    "name": "Conte & Littérature",
+    "color": "#6B8E23"
   },
   {
-    "name": "Communauté et Associations",
-    "color": "#4682B4",
-    "interests": [
-      "Associations",
-      "Initiatives Plurielles",
-      "Le Cœur sur la Main",
-      "Mécénat"
-    ]
+    "name": "Plaisirs Gastronomique & Viticole",
+    "color": "#4682B4"
   },
   {
-    "name": "Sciences et Technologies",
-    "color": "#20B2AA",
-    "interests": [
-      "Industrie",
-      "Science",
-      "Spatiale",
-      "Planète Terre",
-      "Aviation",
-      "Invention et Technologie"
-    ]
+    "name": "Vacances & Détente",
+    "color": "#20B2AA"
   },
   {
-    "name": "Maritime et Nautisme",
-    "color": "#1E90FF",
-    "interests": ["Maritime", "Nautisme", "Défense"]
+    "name": "Evènementiel & Associations",
+    "color": "#1E90FF"
   },
   {
-    "name": "Transport",
-    "color": "#FF4500",
-    "interests": ["Voitures"]
+    "name": "Industrie & Science",
+    "color": "#FF4500"
+  },
+  {
+    "name": "Défense & Spatial",
+    "color": "#8A2BE2"
+  },
+  {
+    "name": "Planète Terre en beauté",
+    "color": "#00CED1"
+  },
+  {
+    "name": "Initiatives plurielles",
+    "color": "#FFD700"
+  },
+  {
+    "name": "Le Coeur sur la Main ou Mécénat",
+    "color": "#FF69B4"
+  },
+  {
+    "name": "Sauvegarde du patrimoine",
+    "color": "#2E8B57"
+  },
+  {
+    "name": "L'eau, l'or qui nous maintient en vie",
+    "color": "#4682B4"
   },
   {
     "name": "Autres",
-    "color": "#808080",
-    "interests": ["Autres"]
+    "color": "#808080"
   }
 ]

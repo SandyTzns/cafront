@@ -59,60 +59,13 @@
 }
 
 .dropdown-option:hover {
-  background-color: #f2f2f2;
-  color: #000;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .category-dot {
-  display: inline-block;
   width: 12px;
   height: 12px;
   border-radius: 50%;
+  display: inline-block;
   margin-right: 8px;
-}
-
-/* .category-text {
-  color: #000;
-  font-size: 14px;
-} */
-
-/* Sub-category Buttons */
-.subcategory-container {
-  margin-top: 20px; /* Space between Category and Sub-category */
-}
-
-.subcategory-label {
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.subcategory-buttons {
-  display: flex;
-  flex-wrap: wrap; /* Wrap buttons to next row if needed */
-  gap: 10px; /* Space between buttons */
-}
-
-.subcategory-button {
-  padding: 5px 10px;
-  font-size: 12px;
-  border: 1px solid #ccc; /* Neutral gray border by default */
-  border-radius: 8px;
-  background-color: transparent;
-  color: #333;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.subcategory-button:hover {
-  background-color: var(--hover-color); /* Category color on hover */
-  color: #fff; /* White text when hovered */
-  border-color: var(--hover-color); /* Match border to hover color */
-}
-
-.subcategory-button.selected {
-  background-color: var(--selected-color); /* Category color when selected */
-  color: #fff; /* White text for selected state */
-  border-color: var(--selected-color); /* Match border to selected color */
 }

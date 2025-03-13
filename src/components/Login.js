@@ -1,24 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../services/userService"; // ✅ Import the service
 import "../styles/Login.css";
-import { FaGoogle, FaLinkedin } from "react-icons/fa"; // Social Icons
+import { FaGoogle, FaLinkedin } from "react-icons/fa";
 
 function Login() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Placeholder for authentication logic
-    navigate("/accueil"); // Navigate to Main Page
-  };
+    setErrorMessage(""); // Reset previous errors before trying again
 
-  const handleForgotPassword = () => {
-    navigate("/forgot-password"); // Navigate to Password Recovery Email Page
+    try {
+      console.log("🚀 handleLogin function is running!");
+      const response = await loginUser(email, password, rememberMe);
+
+      if (response.success) {
+        console.log("✅ Navigation triggered: Redirecting to Dashboard");
+        alert("Connexion réussie !");
+        window.location.reload();
+        // navigate("/accueil"); //
+      } else {
+        console.error("❌ Login failed:", response.message);
+
+        // ✅ Use setTimeout to ensure state updates before React re-renders
+        setTimeout(() => {
+          setErrorMessage(response.message);
+        }, 100);
+      }
+    } catch (error) {
+      setTimeout(() => {
+        setErrorMessage("Erreur lors de la connexion. Veuillez réessayer.");
+      }, 100);
+      console.error("Login error:", error);
+    }
   };
 
   return (
     <div className="login">
-      {/* Social Login Section */}
       <div className="social-header">
         <h2 className="social-text">Connectez-vous</h2>
         <div className="social-icons">
@@ -34,28 +57,47 @@ function Login() {
         </div>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleLogin}>
         <label htmlFor="email">EMAIL</label>
-        <input type="email" id="email" placeholder="Adresse email" required />
+        <input
+          type="email"
+          id="email"
+          placeholder="Adresse email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
         <label htmlFor="password">MOT DE PASSE</label>
         <input
           type="password"
           id="password"
           placeholder="Mot de passe"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {/* Show error message */}
         <button type="submit" className="login-button">
           Se connecter
         </button>
         <div className="options">
           <div className="checkbox-remember-me">
-            <input type="checkbox" id="remember-me" name="remember-me" />
+            <input
+              type="checkbox"
+              id="remember-me"
+              name="remember-me"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
             <label htmlFor="remember-me">Se souvenir de moi</label>
           </div>
-          <a onClick={handleForgotPassword} className="forgot-password">
+          <button
+            onClick={() => navigate("/forgot-password")}
+            className="forgot-password"
+          >
             Mot de passe oublié ?
-          </a>
+          </button>
         </div>
       </form>
     </div>

@@ -1,0 +1,178 @@
+.profile-container {
+  display: flex;
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Left Sidebar */
+.profile-sidebar {
+  width: 30%;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  border-right: 1px solid #ddd;
+}
+
+.avatar-container {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #007bff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.avatar-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+.profile-sidebar h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Right Section - Profile Form */
+.profile-form-container {
+  width: 70%;
+  padding: 30px;
+}
+
+.profile-form-container h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.input-group-row {
+  display: flex;
+  gap: 15px;
+}
+
+.input-group-row .input-group {
+  width: 50%;
+}
+
+/* Section Titles */
+.profile-form-container h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #444;
+  margin: 15px 0 10px;
+}
+
+/* Save Button */
+.save-btn {
+  width: 100%;
+  background: #007bff;
+  color: #fff;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 15px;
+}
+
+.save-btn:hover {
+  background: #0056b3;
+}
+
+/* ADMIN CATEGORY FORM */
+.admin-category-section {
+  margin-top: 20px;
+}
+
+.admin-category-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-category-form input {
+  border-radius: 5px;
+  padding: 7px;
+  border: 1px solid #ccc;
+}
+
+/* Fixing Color Picker */
+.admin-category-form input[type="color"] {
+  appearance: none;
+  border: none;
+  width: 31px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* For WebKit browsers (Chrome, Edge, Safari) */
+.admin-category-form input[type="color"]::-webkit-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+
+/* For Firefox */
+.admin-category-form input[type="color"]::-moz-color-swatch {
+  border-radius: 50%;
+  border: none;
+}
+.admin-category-form button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Success Message */
+.success-message {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background: #28a745;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+}

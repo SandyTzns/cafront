@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import categories from "../data/categories.json";
-import simpleCategories from "../data/categories_simple.json";
+import simpleCategories from "../data/categories.json";
 import { registerUser } from "../services/userService";
 import "../styles/SignUpForm.css";
 
 function SignUpForm() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const [pseudo, setPseudo] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [avatar, setAvatar] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [selectedInterests, setSelectedInterests] = useState({});
   const useSimpleCategories = true; // Toggle to switch between datasets
   const categoriesData = useSimpleCategories ? simpleCategories : categories;
@@ -21,47 +30,57 @@ function SignUpForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      alert("Les mots de passe ne correspondent pas !");
+      return;
+    }
+
+    // Use the first company if available for advertisement info
+    const company =
+      companies.length > 0
+        ? companies[0]
+        : { name: "", website: "", logo: null };
+
+    // Create a userData object including all fields
     const userData = {
-      pseudo: document.getElementById("pseudo").value,
-      lastName: document.getElementById("lastName").value,
-      firstName: document.getElementById("firstName").value,
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value,
-      avatar: document.getElementById("avatar").files[0] || null,
-      interests:
-        Object.keys(selectedInterests).length > 0 ? selectedInterests : null,
+      pseudo,
+      lastName,
+      firstName,
+      email,
+      password,
+      avatar,
+      interests: selectedInterests,
+      company_name: company.name,
+      company_url: company.website,
+      company_logo: company.logo,
     };
 
     try {
       const response = await registerUser(userData);
-
       if (response.success) {
         alert("Inscription réussie !");
-        navigate("/accueil");
+        // Reset form fields
+        setPseudo("");
+        setLastName("");
+        setFirstName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setAvatar(null);
+        setSelectedInterests({});
+        setCompanies([]);
+        setNewCompany({ name: "", website: "", logo: null });
+
+        // Optionally, reset file input
+        document.getElementById("avatar").value = "";
       } else {
-        alert(response.message || "Erreur lors de l'inscription");
+        alert(response.message);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
-
-  // const toggleInterest = (category, interest) => {
-  //   setSelectedInterests((prev) => {
-  //     const categoryInterests = prev[category] || [];
-  //     if (categoryInterests.includes(interest)) {
-  //       return {
-  //         ...prev,
-  //         [category]: categoryInterests.filter((item) => item !== interest),
-  //       };
-  //     } else {
-  //       return {
-  //         ...prev,
-  //         [category]: [...categoryInterests, interest],
-  //       };
-  //     }
-  //   });
-  // };
 
   const toggleInterest = (interest) => {
     setSelectedInterests((prev) => {
@@ -75,7 +94,8 @@ function SignUpForm() {
     });
   };
 
-  const handleAddCompany = () => {
+  const handleAddCompany = (e) => {
+    e.preventDefault();
     setCompanies([...companies, newCompany]);
     setNewCompany({ name: "", website: "", logo: null }); // Reset form
     setShowForm(false);
@@ -93,17 +113,35 @@ function SignUpForm() {
         <div className="form-group row">
           <div className="input-pair">
             <label htmlFor="pseudo">Pseudo</label>
-            <input type="text" id="pseudo" placeholder="Votre pseudo" />
+            <input
+              type="text"
+              id="pseudo"
+              placeholder="Votre pseudo"
+              value={pseudo}
+              onChange={(e) => setPseudo(e.target.value)}
+            />
           </div>
           <div className="input-pair avatar-input">
             <label htmlFor="avatar">Avatar</label>
-            <input type="file" id="avatar" />
+            <input
+              type="file"
+              id="avatar"
+              accept="image/*"
+              onChange={(e) => setAvatar(e.target.files[0])}
+            />
           </div>
         </div>
         <div className="form-group row fullname-section">
           <div className="input-pair">
             <label htmlFor="lastName">Nom</label>
-            <input type="text" id="lastName" placeholder="Votre nom" required />
+            <input
+              type="text"
+              id="lastName"
+              placeholder="Votre nom"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
           </div>
           <div className="input-pair">
             <label htmlFor="firstName">Prénom</label>
@@ -111,6 +149,8 @@ function SignUpForm() {
               type="text"
               id="firstName"
               placeholder="Votre prénom"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               required
             />
           </div>
@@ -118,26 +158,55 @@ function SignUpForm() {
 
         <div className="form-group">
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="Votre email" required />
+          <input
+            type="email"
+            id="email"
+            placeholder="Votre email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="password">Mot de passe</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Votre mot de passe"
-            required
-          />
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              placeholder="Votre mot de passe"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "👁️" : "🙈"}
+            </span>
+          </div>
         </div>
+
         <div className="form-group">
           <label htmlFor="confirmPassword">Confirmer votre mot de passe</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirmer votre mot de passe"
-            required
-          />
+          <div className="password-container">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirmPassword"
+              placeholder="Confirmer votre mot de passe"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <span
+              className="password-toggle"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? "👁️" : "🙈"}
+            </span>
+          </div>
         </div>
+
         <div className="interests-section">
           <h3 className="interests-title">Centres d’intérêts</h3>
           <div className="interests-grid">
@@ -171,6 +240,7 @@ function SignUpForm() {
 
           {/* Add Company Button */}
           <button
+            type="button"
             className="add-company-btn"
             onClick={() => setShowForm(!showForm)}
           >

@@ -17,7 +17,12 @@ function LandingPage() {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/accueil");
+    const isLoggedIn = sessionStorage.getItem("user") !== null; // Check session storage
+    if (isLoggedIn) {
+      navigate("/accueil"); // User is logged in → Go to Dashboard
+    } else {
+      navigate("/auth"); // User is NOT logged in → Go to Auth Page
+    }
   };
 
   return (

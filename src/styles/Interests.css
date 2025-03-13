@@ -1,0 +1,79 @@
+/* 🌸 Interests Section */
+.interests-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+/* 🔥 Interest Badges */
+.interest-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: white;
+  border: 2px solid #ccc; /* Default, will be overridden by inline style */
+  border-radius: 20px;
+  padding: 7px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.interest-badge:hover {
+  background: #f7f7f7;
+}
+
+/* ❌ Remove Button */
+.remove-btn {
+  font-size: 14px;
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.remove-btn:hover {
+  color: darkred;
+}
+
+/* ➕ Add Interest Button */
+.add-interest-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  background: #eee;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-interest-btn:hover {
+  background: #ddd;
+}
+
+/* 🎨 Available Interests (Hidden by Default) */
+.interest-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* 🏷️ Interest Options */
+.interest-option {
+  padding: 7px 15px;
+  border: 3px solid #ccc; /* Default, will be overridden */
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.interest-option:hover {
+  background: #f7f7f7;
+}

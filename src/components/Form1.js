@@ -5,21 +5,13 @@ import axios from "axios";
 
 function Form1({ onSubmit, closeModal }) {
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [subCategories, setSubCategories] = useState([]);
   const [title, setTitle] = useState("");
   const [textAreaValue, setTextAreaValue] = useState("");
-  const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
 
-  const handleCategoryChange = (categoryName, subCategories, categoryColor) => {
+  const handleCategoryChange = (categoryName, categoryColor) => {
     setSelectedCategory(categoryName);
-    setSubCategories(subCategories || []);
-    setSelectedSubCategories([]);
     setSelectedCategoryColor(categoryColor || "#ddd");
-  };
-
-  const handleSubCategorySelect = (subcategoryArray) => {
-    setSelectedSubCategories(subcategoryArray);
   };
 
   const handleTitleChange = (e) => {
@@ -34,7 +26,6 @@ function Form1({ onSubmit, closeModal }) {
     setTitle("");
     setTextAreaValue("");
     setSelectedCategory("");
-    setSelectedSubCategories([]);
     setSelectedCategoryColor("");
   };
 
@@ -49,26 +40,23 @@ function Form1({ onSubmit, closeModal }) {
       const response = await axios.post("/api/post/save_post.php", {
         category: selectedCategory,
         categoryColor: selectedCategoryColor || "#ddd",
-        subcategories: selectedSubCategories,
         title,
         content: textAreaValue,
         timestamp: new Date().toISOString(),
       });
 
       if (response.data.success) {
-        // alert("Votre post a bien été publi!");
         resetForm();
         if (onSubmit && response.data.success) {
           onSubmit({
-            id: response.data.id, // Make sure the backend returns the new post's ID
+            id: response.data.id,
             title,
             content: textAreaValue,
             category: selectedCategory,
             categoryColor: selectedCategoryColor || "#ddd",
-            subcategories: selectedSubCategories,
-            media_paths: [], // No media in Form1
+            media_paths: [],
             created_at: response.data.created_at,
-            profilePic: "default-profile-pic.jpg", // Default until user changes it
+            profilePic: "default-profile-pic.jpg",
           });
         }
 
@@ -84,10 +72,7 @@ function Form1({ onSubmit, closeModal }) {
   return (
     <div className="form1-container">
       <form onSubmit={handleFormSubmit}>
-        <CategorySelector
-          onCategoryChange={handleCategoryChange}
-          onSubCategorySelect={handleSubCategorySelect}
-        />
+        <CategorySelector onCategoryChange={handleCategoryChange} />
 
         <div className="form1-title-field">
           <label htmlFor="title">Titre: </label>

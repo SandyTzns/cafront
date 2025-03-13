@@ -57,21 +57,6 @@ function Post({ post, onEdit, onDelete }) {
               )}
             </div>
           </div>
-          {post.subcategories && post.subcategories.length > 0 && (
-            <div className="post-subcategories">
-              {post.subcategories.map((sub) => (
-                <span
-                  key={sub}
-                  className="post-subcategory"
-                  style={{
-                    border: `1px solid ${post.categoryColor || "#ccc"}`,
-                  }}
-                >
-                  {sub}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </div>
 

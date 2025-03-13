@@ -7,23 +7,14 @@ import { savePost, savePostWithMedia } from "../services/postService";
 
 function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [subCategories, setSubCategories] = useState([]);
-  const [selectedSubCategories, setSelectedSubCategories] = useState([]);
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
   const [title, setTitle] = useState("");
   const [isTextAreaVisible, setIsTextAreaVisible] = useState(false);
   const [mediaFiles, setMediaFiles] = useState([]);
 
-  const handleCategoryChange = (categoryName, subCategories, categoryColor) => {
+  const handleCategoryChange = (categoryName, categoryColor) => {
     setSelectedCategory(categoryName);
-    setSubCategories(subCategories || []);
-    setSelectedSubCategories([]);
     setSelectedCategoryColor(categoryColor || "#ddd");
-  };
-
-  const handleSubCategorySelect = (subcategoryArray) => {
-    setSelectedSubCategories(subcategoryArray);
-    console.log("Updated Subcategories (flat array):", subcategoryArray);
   };
 
   const handleTitleChange = (e) => {
@@ -37,7 +28,6 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
   const resetForm = () => {
     setTitle("");
     setSelectedCategory("");
-    setSelectedSubCategories([]);
     setSelectedCategoryColor("");
     setIsTextAreaVisible(false);
     setMediaFiles([]);
@@ -51,42 +41,34 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
       return;
     }
 
-    // Build the new post object with text and meta data
     const newPost = {
-      id: Date.now(), // Temporary ID; will be replaced by the backend-generated ID.
-      profilePic: "default-profile-pic.jpg", // Default value
+      id: Date.now(),
+      profilePic: "default-profile-pic.jpg",
       category: selectedCategory,
       categoryColor: selectedCategoryColor,
-      subcategories: [...selectedSubCategories],
       title,
-      content: isTextAreaVisible ? title : "", // Adjust if you want a separate comment field.
+      content: isTextAreaVisible ? title : "",
       timestamp: new Date().toISOString(),
-      media_paths: [], // Initially empty.
+      media_paths: [],
     };
 
     try {
       let response;
       if (mediaFiles && mediaFiles.length > 0) {
-        // Use the function that handles media uploads
         response = await savePostWithMedia(newPost, mediaFiles);
       } else {
-        // Use the text-only function
         response = await savePost(newPost);
       }
 
       if (response.success) {
-        // alert("Post published successfully!");
-
-        // Create an updated post object that includes media_paths from the backend.
         const updatedPost = {
           ...newPost,
-          id: response.id, // Use the ID returned by the backend.
+          id: response.id,
           media_paths: response.media_paths
             ? JSON.parse(response.media_paths)
             : [],
         };
 
-        // Call onSubmit with the updated post object so the Dashboard updates immediately.
         if (onSubmit) onSubmit(updatedPost);
 
         resetForm();
@@ -106,7 +88,6 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
         <CategorySelector
           options={{ useSimpleCategories }}
           onCategoryChange={handleCategoryChange}
-          onSubCategorySelect={handleSubCategorySelect}
         />
 
         <div className="form2-title-field">
@@ -125,26 +106,6 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
           acceptTypes="image/*,video/*"
           multiple
         />
-
-        <div className="form2-media-section">
-          <p>Ajouter à la publication:</p>
-          <img
-            src={textIcon}
-            alt="Add Comment"
-            className="form2-text-icon"
-            onClick={toggleTextArea}
-          />
-        </div>
-
-        {isTextAreaVisible && (
-          <textarea
-            className="form2-input"
-            placeholder="Add your comment here..."
-            rows="4"
-            value={title} // If you want a separate field for comment, consider a new state variable
-            onChange={(e) => setTitle(e.target.value)}
-          ></textarea>
-        )}
 
         <button
           className="form2-publish-button"

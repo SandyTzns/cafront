@@ -1,4 +1,6 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { checkSession } from "./services/userService"; // Import the function
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import SignUpForm from "./components/SignUpForm";
@@ -6,26 +8,61 @@ import PasswordRecoveryEmail from "./pages/PasswordRecoveryEmail";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
-import CreatePost from "./pages/CreatePost";
 import Layout from "./components/Layout";
 import Contact from "./pages/Contact";
 import APropos from "./pages/APropos";
+import Profile from "./pages/Profile";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(null); // null = waiting for response
+
+  useEffect(() => {
+    const fetchSessionStatus = async () => {
+      console.log("🔍 Checking session on backend...");
+      const result = await checkSession();
+      console.log("📩 Session response:", result);
+      setIsLoggedIn(result.isLoggedIn);
+    };
+
+    fetchSessionStatus();
+  }, []);
+
+  // If session check is still loading, avoid rendering wrong route
+  if (isLoggedIn === null) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <HashRouter>
       <Routes>
-        {/* Pages without NAVBAR */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/signup-form" element={<SignUpForm />} />
-        {/* Password Recovery Pages */}
+        <Route
+          path="/"
+          element={isLoggedIn ? <Navigate to="/accueil" /> : <LandingPage />}
+        />
+        <Route
+          path="/auth"
+          element={isLoggedIn ? <Navigate to="/accueil" /> : <AuthPage />}
+        />
+        <Route
+          path="/signup-form"
+          element={isLoggedIn ? <Navigate to="/accueil" /> : <SignUpForm />}
+        />
         <Route path="/forgot-password" element={<PasswordRecoveryEmail />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        {/* 404 Page */}
         <Route path="*" element={<NotFound />} />
 
-        {/* Pages WITH NAVBAR */}
+        {/* <Route
+          path="/accueil"
+          element={
+            isLoggedIn ? (
+              <Layout>
+                <Dashboard />
+              </Layout>
+            ) : (
+              <Navigate to="/auth" />
+            )
+          }
+        /> */}
         <Route
           path="/accueil"
           element={
@@ -34,30 +71,52 @@ function App() {
             </Layout>
           }
         />
-        <Route
-          path="/nouveau-post"
-          element={
-            <Layout>
-              <CreatePost />
-            </Layout>
-          }
-        />
+
         <Route
           path="/contact"
           element={
-            <Layout>
-              <Contact />
-            </Layout>
+            isLoggedIn ? (
+              <Layout>
+                <Contact />
+              </Layout>
+            ) : (
+              <Navigate to="/auth" />
+            )
           }
         />
         <Route
           path="/a-propos"
           element={
+            isLoggedIn ? (
+              <Layout>
+                <APropos />
+              </Layout>
+            ) : (
+              <Navigate to="/auth" />
+            )
+          }
+        />
+        <Route
+          path="/profile"
+          element={
             <Layout>
-              <APropos />
+              <Profile />
             </Layout>
           }
         />
+
+        {/* <Route
+          path="/profile"
+          element={
+            isLoggedIn ? (
+              <Layout>
+                <Profile />
+              </Layout>
+            ) : (
+              <Navigate to="/auth" />
+            )
+          }
+        /> */}
       </Routes>
     </HashRouter>
   );
