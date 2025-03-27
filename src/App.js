@@ -51,7 +51,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="*" element={<NotFound />} />
 
-        {/* <Route
+        <Route
           path="/accueil"
           element={
             isLoggedIn ? (
@@ -62,15 +62,15 @@ function App() {
               <Navigate to="/auth" />
             )
           }
-        /> */}
-        <Route
+        />
+        {/* <Route
           path="/accueil"
           element={
             <Layout>
               <Dashboard />
             </Layout>
           }
-        />
+        /> */}
 
         <Route
           path="/contact"
@@ -96,16 +96,16 @@ function App() {
             )
           }
         />
-        <Route
+        {/* <Route
           path="/profile"
           element={
             <Layout>
               <Profile />
             </Layout>
           }
-        />
+        /> */}
 
-        {/* <Route
+        <Route
           path="/profile"
           element={
             isLoggedIn ? (
@@ -116,7 +116,7 @@ function App() {
               <Navigate to="/auth" />
             )
           }
-        /> */}
+        />
       </Routes>
     </HashRouter>
   );

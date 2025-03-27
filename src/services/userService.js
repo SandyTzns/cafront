@@ -1,6 +1,6 @@
 // userService.js
 
-// const API_BASE_URL = "http://localhost/api/user"; // Adjust if needed
+// const API_BASE_URL = "http://localhost/caback/user"; // Adjust if needed
 
 export const registerUser = async (userData) => {
   try {
@@ -29,7 +29,7 @@ export const registerUser = async (userData) => {
       formData.append("company_logo", userData.company_logo);
     }
 
-    const response = await fetch("http://localhost/api/user/save_user.php", {
+    const response = await fetch("http://localhost/caback/user/save_user.php", {
       method: "POST",
       body: formData, // FormData auto-sets Content-Type
     });
@@ -48,7 +48,7 @@ export const loginUser = async (email, password, rememberMe) => {
     console.log("📨 Email:", email);
     console.log("🔑 Password:", password);
 
-    const response = await fetch("http://localhost/api/user/login.php", {
+    const response = await fetch("http://localhost/caback/user/login.php", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -69,7 +69,7 @@ export const loginUser = async (email, password, rememberMe) => {
 export const checkSession = async () => {
   try {
     const response = await fetch(
-      "http://localhost/api/user/session_status.php",
+      "http://localhost/caback/user/session_status.php",
       {
         method: "GET",
         credentials: "include", // Very important to include cookies!
