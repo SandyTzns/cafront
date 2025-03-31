@@ -1,9 +1,20 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logoutUser } from "../services/userService";
 import "../styles/Navbar.css";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      navigate("/"); // or "/login" depending on your flow
+    } catch (error) {
+      console.error("Erreur de déconnexion :", error);
+    }
+  };
 
   return (
     <nav className="navbar">
@@ -69,7 +80,12 @@ function Navbar() {
             >
               Mon Profil
             </NavLink>
-            <span className="navbar-logout-link" role="button" tabIndex="0">
+            <span
+              className="navbar-logout-link"
+              role="button"
+              tabIndex="0"
+              onClick={handleLogout}
+            >
               Déconnexion
             </span>
           </div>

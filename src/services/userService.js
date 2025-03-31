@@ -83,3 +83,16 @@ export const checkSession = async () => {
     return { isLoggedIn: false };
   }
 };
+
+export async function logoutUser() {
+  const response = await fetch("http://localhost/caback/user/logout.php", {
+    method: "POST",
+    credentials: "include", // make sure this is set for cookies
+  });
+
+  if (response.ok) {
+    return true;
+  } else {
+    throw new Error("Erreur lors de la déconnexion");
+  }
+}
