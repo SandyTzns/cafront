@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Profile.css";
 import Interests from "../components/Interests";
+import { useAuth } from "../context/AuthContext";
+const BACKEND_BASE_URL = "http://localhost/caback"; // or your deployed URL
 
 function Profile() {
+  const { user } = useAuth();
+
   const [userData, setUserData] = useState({
-    pseudo: "Sandy",
-    firstName: "Sandy",
-    lastName: "Bloom",
-    email: "phbloomwood@gmail.com",
-    avatar: null,
+    pseudo: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    avatar: "",
     newPassword: "",
     confirmPassword: "",
-    interests: ["Graphisme & Peinture", "Vacances & Détente"],
-    companies: [], // Stores multiple company details
+    interests: [],
+    companies: [],
   });
+
+  useEffect(() => {
+    if (user) {
+      setUserData((prev) => ({
+        ...prev,
+        pseudo: user.pseudo || "",
+        firstName: user.first_name || "",
+        lastName: user.last_name || "",
+        email: user.email || "",
+        avatar: user.avatar || "https://via.placeholder.com/150",
+        interests: user.interests || [],
+      }));
+    }
+  }, [user]);
 
   // ✅ Check if user is an Admin
   const isAdmin = userData.email === "phbloomwood@gmail.com"; // Replace with real check later
@@ -87,7 +105,11 @@ function Profile() {
       <div className="profile-sidebar">
         <div className="avatar-container">
           <img
-            src={userData.avatar || "https://via.placeholder.com/150"}
+            src={
+              userData.avatar
+                ? `http://localhost${userData.avatar}`
+                : "https://via.placeholder.com/150"
+            }
             alt="Avatar"
           />
         </div>

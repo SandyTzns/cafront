@@ -1,3 +1,4 @@
+import { useAuth } from "../context/AuthContext";
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../services/userService";
@@ -6,11 +7,19 @@ import "../styles/Navbar.css";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
+  console.log("👤 User in Navbar:", user);
+
+  const firstName = user?.first_name || "Mon Profil";
+
+  const { setUser, setIsLoggedIn } = useAuth();
 
   const handleLogout = async () => {
     try {
-      await logoutUser();
-      navigate("/"); // or "/login" depending on your flow
+      await logoutUser(); // backend clears PHP session + cookie
+      setUser(null); // clear context
+      setIsLoggedIn(false);
+      navigate("/auth"); // redirect to login page
     } catch (error) {
       console.error("Erreur de déconnexion :", error);
     }
@@ -70,7 +79,7 @@ function Navbar() {
           Contact
         </NavLink>
         <div className="navbar-dropdown">
-          <span className="navbar-dropdown-title">Sandy</span>
+          <span className="navbar-dropdown-title">{firstName}</span>
           <div className="navbar-dropdown-content">
             <NavLink
               to="/profile"

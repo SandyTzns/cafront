@@ -6,14 +6,21 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchUser() {
       const res = await checkSession();
-      if (res.isLoggedIn) {
-        // You can replace this with a call to get_user.php to fetch full user details
-        setUser({ id: res.user_id });
+      console.log("🌀 fetchUser ran in AuthContext");
+      console.log("🔐 isLoggedIn from backend:", res.isLoggedIn);
+      console.log("👤 user_id from backend:", res.user_id);
+      if (res.success && res.user) {
+        setUser(res.user); // Stores { id, first_name, pseudo, avatar }
+        setIsLoggedIn(true);
+      } else {
+        setUser(null);
+        setIsLoggedIn(false);
       }
       setIsLoading(false);
     }
@@ -21,7 +28,9 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, isLoading }}>
+    <AuthContext.Provider
+      value={{ user, setUser, isLoggedIn, setIsLoggedIn, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,6 +1,7 @@
 // postService.js
 
-const API_BASE_URL = "/api/post";
+const API_BASE_URL =
+  process.env.REACT_APP_API_URL || "http://localhost/caback/post";
 
 // Save a new post (for text-only posts)
 export const savePost = async (post) => {
@@ -30,6 +31,10 @@ export const savePostWithMedia = async (post, mediaFiles) => {
   try {
     // Create a FormData object
     const formData = new FormData();
+    const formattedTimestamp = new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
 
     // Append text fields from the post object
     formData.append("title", post.title);
@@ -37,7 +42,7 @@ export const savePostWithMedia = async (post, mediaFiles) => {
     formData.append("category", post.category);
     formData.append("categoryColor", post.categoryColor);
     formData.append("profilePic", post.profilePic || "default-profile-pic.jpg");
-    formData.append("timestamp", post.timestamp || new Date().toISOString());
+    formData.append("timestamp", post.timestamp || formattedTimestamp);
 
     // Append each media file; using the key "file" (or "file[]" if you prefer for multiple files)
     if (mediaFiles && mediaFiles.length > 0) {
@@ -87,7 +92,7 @@ export const editPost = async (post, mediaFiles) => {
   try {
     let formData;
     let headers = {};
-    const url = "/api/post/edit_post.php";
+    const url = `${API_BASE_URL}/edit_post.php`;
 
     // If there are media files, use FormData.
     if (mediaFiles && mediaFiles.length > 0) {
@@ -129,9 +134,12 @@ export const editPost = async (post, mediaFiles) => {
 export const deletePost = async (postId) => {
   try {
     // We'll use GET here for simplicity, but you could use DELETE if you prefer.
-    const response = await fetch(`/api/post/delete_post.php?id=${postId}`, {
-      method: "GET", // Change to 'DELETE' if your server is set up for DELETE requests.
-    });
+    const response = await fetch(
+      `${API_BASE_URL}/delete_post.php?id=${postId}`,
+      {
+        method: "GET", // Change to 'DELETE' if your server is set up for DELETE requests.
+      }
+    );
     const data = await response.json();
     if (data.success) {
       return data;

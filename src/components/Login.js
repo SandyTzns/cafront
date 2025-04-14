@@ -1,3 +1,4 @@
+import { useAuth } from "../context/AuthContext";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/userService"; // ✅ Import the service
@@ -5,6 +6,7 @@ import "../styles/Login.css";
 import { FaGoogle, FaLinkedin } from "react-icons/fa";
 
 function Login() {
+  const { setUser, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,10 +33,16 @@ function Login() {
       const response = await loginUser(email, password, rememberMe);
 
       if (response.success) {
-        console.log("✅ Navigation triggered: Redirecting to Dashboard");
+        const { id, first_name, pseudo, avatar } = response.user;
+
+        // setUser({ id: response.user_id });
+        setUser({ id, first_name, pseudo, avatar });
+        setIsLoggedIn(true);
+        console.log("✅ Login successful, setting user and isLoggedIn");
+        console.log("🆔 user_id:", response.user_id);
         alert("Connexion réussie !");
-        window.location.reload();
-        // navigate("/accueil"); //
+        console.log("🧭 Navigating to /accueil...");
+
         if (rememberMe) {
           localStorage.setItem("rememberedEmail", email);
           localStorage.setItem("rememberedPassword", password);
@@ -42,6 +50,8 @@ function Login() {
           localStorage.removeItem("rememberedEmail");
           localStorage.removeItem("rememberedPassword");
         }
+
+        navigate("/accueil");
       } else {
         console.error("❌ Login failed:", response.message);
 

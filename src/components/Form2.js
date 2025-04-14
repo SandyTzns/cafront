@@ -1,16 +1,19 @@
+import { useAuth } from "../context/AuthContext";
 import React, { useState } from "react";
 import "../styles/Form2.css";
 import MediaUpload from "./MediaUpload";
 import CategorySelector from "./CategorySelector";
-import textIcon from "../assets/images/text.png";
+// import textIcon from "../assets/images/text.png";
 import { savePost, savePostWithMedia } from "../services/postService";
 
-function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
+function Form2({ onSubmit, closeModal, useSimpleCategories }) {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
   const [title, setTitle] = useState("");
   const [isTextAreaVisible, setIsTextAreaVisible] = useState(false);
   const [mediaFiles, setMediaFiles] = useState([]);
+  const { user } = useAuth();
+  const userId = user?.id;
 
   const handleCategoryChange = (categoryName, categoryColor) => {
     setSelectedCategory(categoryName);
@@ -21,9 +24,11 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
     setTitle(e.target.value);
   };
 
-  const toggleTextArea = () => {
-    setIsTextAreaVisible((prev) => !prev);
-  };
+  // const toggleTextArea = () => {
+  //   setIsTextAreaVisible((prev) => !prev);
+  //
+  //  initialView,
+  // };
 
   const resetForm = () => {
     setTitle("");
@@ -41,14 +46,20 @@ function Form2({ initialView, onSubmit, closeModal, useSimpleCategories }) {
       return;
     }
 
+    const formattedTimestamp = new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+
     const newPost = {
       id: Date.now(),
+      user_id: userId,
       profilePic: "default-profile-pic.jpg",
       category: selectedCategory,
       categoryColor: selectedCategoryColor,
       title,
       content: isTextAreaVisible ? title : "",
-      timestamp: new Date().toISOString(),
+      timestamp: formattedTimestamp,
       media_paths: [],
     };
 

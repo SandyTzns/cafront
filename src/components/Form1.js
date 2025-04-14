@@ -1,3 +1,4 @@
+import { useAuth } from "../context/AuthContext";
 import React, { useState } from "react";
 import "../styles/Form1.css";
 import CategorySelector from "./CategorySelector";
@@ -8,6 +9,8 @@ function Form1({ onSubmit, closeModal }) {
   const [title, setTitle] = useState("");
   const [textAreaValue, setTextAreaValue] = useState("");
   const [selectedCategoryColor, setSelectedCategoryColor] = useState("");
+  const { user } = useAuth();
+  const userId = user?.id;
 
   const handleCategoryChange = (categoryName, categoryColor) => {
     setSelectedCategory(categoryName);
@@ -37,13 +40,22 @@ function Form1({ onSubmit, closeModal }) {
     }
 
     try {
-      const response = await axios.post("/api/post/save_post.php", {
-        category: selectedCategory,
-        categoryColor: selectedCategoryColor || "#ddd",
-        title,
-        content: textAreaValue,
-        timestamp: new Date().toISOString(),
-      });
+      const formData = new FormData();
+      const formattedTimestamp = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+      formData.append("user_id", userId);
+      formData.append("title", title);
+      formData.append("content", textAreaValue);
+      formData.append("category", selectedCategory);
+      formData.append("categoryColor", selectedCategoryColor || "#ddd");
+      formData.append("timestamp", formattedTimestamp);
+
+      const response = await axios.post(
+        "http://localhost/caback/post/save_post.php",
+        formData
+      );
 
       if (response.data.success) {
         resetForm();

@@ -4,6 +4,7 @@ import {
   renderContentWithLinks,
   isYouTubeLink,
 } from "../services/postUtils.js";
+// const BACKEND_BASE_URL = "http://localhost/caback"; // or your deployed URL
 
 function Post({ post, onEdit, onDelete }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,15 +26,6 @@ function Post({ post, onEdit, onDelete }) {
   return (
     <div className="post">
       <div className="post-container">
-        <img
-          src={
-            post.profilePic && !post.profilePic.startsWith("http")
-              ? `/api/uploads/${post.profilePic}`
-              : post.profilePic || "default-logo-path.jpg"
-          }
-          alt="Profile"
-          className="post-profile-pic"
-        />
         <div className="post-cat-sub-time">
           {/* New wrapper for top row: category and dropdown */}
           <div className="post-cat-top">
