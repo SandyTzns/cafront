@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../styles/Profile.css";
 import Interests from "../components/Interests";
 import { useAuth } from "../context/AuthContext";
-const BACKEND_BASE_URL = "http://localhost/caback"; // or your deployed URL
+import {
+  getAllInterests,
+  getUserInterests,
+  addUserInterest,
+  deleteUserInterest,
+} from "../services/interestService";
 
 function Profile() {
   const { user } = useAuth();
@@ -19,8 +24,11 @@ function Profile() {
     companies: [],
   });
 
+  const [allInterests, setAllInterests] = useState([]);
+
   useEffect(() => {
     if (user) {
+      // Set basic user info
       setUserData((prev) => ({
         ...prev,
         pseudo: user.pseudo || "",
@@ -28,15 +36,28 @@ function Profile() {
         lastName: user.last_name || "",
         email: user.email || "",
         avatar: user.avatar || "https://via.placeholder.com/150",
-        interests: user.interests || [],
       }));
+
+      // Fetch interests from backend
+      getUserInterests(user.id)
+        .then((userInterests) => {
+          const safeInterests = Array.isArray(userInterests)
+            ? userInterests
+            : [];
+          setUserData((prev) => ({ ...prev, interests: safeInterests }));
+        })
+        .catch((err) => {
+          console.error("Failed to load user interests:", err);
+        });
+
+      getAllInterests().then(setAllInterests);
     }
   }, [user]);
 
-  // ✅ Check if user is an Admin
-  const isAdmin = userData.email === "phbloomwood@gmail.com"; // Replace with real check later
+  // Admin check
+  const isAdmin = userData.email === "phbloomwood@gmail.com"; // Update later
 
-  // State for adding a new category
+  // New interest (admin form)
   const [newCategory, setNewCategory] = useState({
     name: "",
     color: "#000000",
@@ -51,24 +72,18 @@ function Profile() {
     setNewCategory({ ...newCategory, [e.target.name]: e.target.value });
   };
 
-  const addCategory = () => {
-    if (newCategory.name.trim() === "") return;
-
-    // Add the category to interests
-    setUserData({
-      ...userData,
-      interests: [...userData.interests, newCategory.name],
-    });
-
-    // Show success message
-    setShowSuccessMessage(true);
-    setTimeout(() => setShowSuccessMessage(false), 3000);
-
-    // Reset form
-    setNewCategory({ name: "", color: "#000000" });
+  const handleToggleInterest = async (interestId, isSelected) => {
+    if (!user?.id) return;
+    if (isSelected) {
+      await deleteUserInterest(user.id, interestId);
+    } else {
+      await addUserInterest(user.id, interestId);
+    }
+    const updated = await getUserInterests(user.id);
+    setUserData((prev) => ({ ...prev, interests: updated }));
   };
 
-  // Company Management
+  // Companies
   const [showCompanyForm, setShowCompanyForm] = useState(false);
   const [newCompany, setNewCompany] = useState({
     name: "",
@@ -179,14 +194,14 @@ function Profile() {
             </div>
           </div>
 
+          {/* 🎯 Interests Section (linked to backend) */}
           <Interests
             selectedInterests={userData.interests}
-            setSelectedInterests={(interests) =>
-              setUserData({ ...userData, interests })
-            }
+            allInterests={allInterests}
+            onToggleInterest={handleToggleInterest}
           />
 
-          {/* Admin Section: Add Category */}
+          {/* Admin Section: Add Category (to be replaced by add_interest.php) */}
           {isAdmin && (
             <div className="admin-category-section">
               <h3>Admin: Ajouter une catégorie</h3>
@@ -204,7 +219,11 @@ function Profile() {
                   value={newCategory.color}
                   onChange={handleCategoryChange}
                 />
-                <button onClick={addCategory}>Ajouter</button>
+                <button
+                  onClick={() => alert("Use add_interest.php instead 😉")}
+                >
+                  Ajouter
+                </button>
               </div>
               {showSuccessMessage && (
                 <p className="success-message">Nouvelle catégorie ajoutée!</p>

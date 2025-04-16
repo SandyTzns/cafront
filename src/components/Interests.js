@@ -1,35 +1,31 @@
 import React, { useState } from "react";
-import categoriesData from "../data/categories.json"; // Assuming you have categories with colors
 import "../styles/Interests.css";
 
-function Interests() {
-  const [selectedInterests, setSelectedInterests] = useState([
-    "Photography",
-    "Traveling",
-  ]);
-  const [showAvailableInterests, setShowAvailableInterests] = useState(false); // Toggle State
+function Interests({
+  selectedInterests = [],
+  allInterests = [],
+  onToggleInterest,
+}) {
+  const [showAvailableInterests, setShowAvailableInterests] = useState(false);
 
-  const availableInterests = categoriesData.filter(
-    (category) => !selectedInterests.includes(category.name)
-  );
+  // Local helper to check if an interest is already selected
+  const isSelected = (interestId) =>
+    selectedInterests.some((i) => i.id === interestId);
 
-  const addInterest = (interest) => {
-    setSelectedInterests([...selectedInterests, interest]);
-  };
-
-  const removeInterest = (interest) => {
-    setSelectedInterests(selectedInterests.filter((item) => item !== interest));
-  };
+  const getCategoryById = (id) => allInterests.find((cat) => cat.id === id);
+  const getCategoryByName = (name) =>
+    allInterests.find((cat) => cat.name === name);
 
   return (
     <div>
-      <h3>Interests</h3>
+      <h3>Mes intérêts</h3>
 
       {/* Selected Interests */}
       <div className="interests-container">
         {selectedInterests.map((interest, index) => {
-          const category = categoriesData.find((cat) => cat.name === interest);
-          if (!category) return null; // Prevent error if category is not found
+          const category =
+            getCategoryById(interest.id) || getCategoryByName(interest.name);
+          if (!category) return null;
 
           return (
             <div
@@ -37,10 +33,10 @@ function Interests() {
               className="interest-badge"
               style={{ borderColor: category.color }}
             >
-              {interest}
+              {category.name}
               <span
                 className="remove-btn"
-                onClick={() => removeInterest(interest)}
+                onClick={() => onToggleInterest(category.id, true)}
               >
                 ×
               </span>
@@ -49,7 +45,7 @@ function Interests() {
         })}
       </div>
 
-      {/* Toggle Button */}
+      {/* Toggle Add Interest */}
       <button
         className="add-interest-btn"
         onClick={() => setShowAvailableInterests(!showAvailableInterests)}
@@ -57,19 +53,21 @@ function Interests() {
         Ajouter un intérêt
       </button>
 
-      {/* Available Interests (only shows when button is clicked) */}
+      {/* Available Interests */}
       {showAvailableInterests && (
         <div className="interest-selection">
-          {availableInterests.map((category, index) => (
-            <span
-              key={index}
-              className="interest-option"
-              style={{ borderColor: category.color }}
-              onClick={() => addInterest(category.name)}
-            >
-              {category.name}
-            </span>
-          ))}
+          {allInterests
+            .filter((cat) => !isSelected(cat.id))
+            .map((category, index) => (
+              <span
+                key={index}
+                className="interest-option"
+                style={{ borderColor: category.color }}
+                onClick={() => onToggleInterest(category.id, false)}
+              >
+                {category.name}
+              </span>
+            ))}
         </div>
       )}
     </div>
